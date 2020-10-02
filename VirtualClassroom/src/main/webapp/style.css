@@ -1,0 +1,27 @@
+@charset "ISO-8859-1";
+.div1
+{
+	background-color: #85C1E9;
+	height: 230px;
+	border-radius: 13px;
+}
+.row1
+{
+	border-bottom: 2px solid gray;
+}
+.div2
+{
+	background-color: gray;
+	opacity: 50%;
+}
+.div3
+{
+	background-color: gray;
+	border-radius: 0px 0px 13px 13px;
+}
+.div4
+{
+	background-color: #85C1E9;
+	height: 150px;
+	border-radius: 13px;
+}
