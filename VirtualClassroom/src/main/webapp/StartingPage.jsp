@@ -4,6 +4,7 @@
 <%@page import="java.sql.Statement"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,9 +17,8 @@
   <link rel="stylesheet" href="style.css">
   
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  
+  
    
 <title>Virtual classroom</title>
 </head>
@@ -73,20 +73,21 @@
 	
 		<div class="col-sm-3  mt-4 ">
 		
-		<div class="container div1">
-		<a href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>">
+		<div class="container bg-info div1">
+		<a href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>">
 		
-			<div class="container">
+			<h3 class="text-light" style="font-size:5vw-sm">
 				<%
 					out.println(rs.getString("classname"));
 				%>
-			</div>
+			</h3>
 		
 		<br>
-		
+		<p class="text-light" style="font-size:20px">
 		<%
 			out.println(rs.getString("section"));
 		%>
+		</p>
 		</a>
 		<br>
 		
@@ -150,4 +151,16 @@
 		
 </div>
 </body>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  	
+  	<script type="text/javascript">
+
+
+
+
+  	</script>
 </html>
