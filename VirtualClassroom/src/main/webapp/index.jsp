@@ -43,32 +43,33 @@
 
 <body>
 
-<div class="container">
+ <div class="container">
 
 	<form onsubmit="return test()" action="ServletTeacher" name="createclass" method="post">
 	<h2>Class Details</h2>
 		Class Name (required)<br>
 		<input type="text" name="classname" required><br>
 		Class Description<br>
-		<input type="text" name="classdescription"><br>
+		<input type="text" placeholder="Class Description" name="classdescription"><br>
 		Section<br>
-		<input type="text" name="section"><br>
+		<input type="text" placeholder="Section" name="section"><br>
 		Room<br>
-		<input type="text" name="room"><br>
+		<input type="text" placeholder="Room" name="room"><br>
 		Subject<br>
-		<input type="text" name="subject"><br>
+		<input type="text" placeholder="Subject" name="subject"><br>
 	<h2>Teacher's Details</h2>
 		Teacher's Name<br>
-		<input type="text" name="teachername"><br>
+		<input type="text" placeholder="Teacher's Name" name="teachername"><br>
 		Mail Id<br>
-		<input id="mail" placeholder="abc@gmail.com" type="text" name="mailid"><br>
+		<input id="mail" placeholder="Mail Id" type="text" name="mailid"><br>
 		Password<br>
-		<input type="password" name="password"><br><br>
+		<input type="password" placeholder="password"  name="password"><br><br>
 		<input type="submit" name="Create" value="Create">
 	</form>	
 	
 	
 </div>
+
 
 </body>
 </html>

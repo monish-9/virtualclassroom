@@ -16,6 +16,12 @@
   	<description></description>
   	<servlet-class>com.SPASM.controller.ServletStudent</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>PostServlet</servlet-name>
+  	<display-name>PostServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.PostServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletTeacher</servlet-name>
   	<url-pattern>/ServletTeacher</url-pattern>
@@ -23,5 +29,9 @@
   <servlet-mapping>
   	<servlet-name>ServletStudent</servlet-name>
   	<url-pattern>/ServletStudent</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>PostServlet</servlet-name>
+  	<url-pattern>/PostServlet</url-pattern>
   </servlet-mapping>
 </web-app>

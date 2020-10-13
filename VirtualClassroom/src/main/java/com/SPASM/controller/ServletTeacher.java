@@ -26,27 +26,27 @@ public class ServletTeacher extends HttpServlet {
     DatabaseDAO dao=new DatabaseDAO();  
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String classname=request.getParameter("classname");
-		String classdescription=request.getParameter("classdescription");
+		//String classdescription=request.getParameter("classdescription");
 		String section=request.getParameter("section");
 		String room=request.getParameter("room");
 		
 		String subject=request.getParameter("subject");
-		String teachername=request.getParameter("teachername");
+		//String teachername=request.getParameter("teachername");
 		String mailid=request.getParameter("mailid");
-		String password=request.getParameter("password");
+		//String password=request.getParameter("password");
 		Teacher t=new Teacher();
 		t.setClassname(classname);
-		t.setClassdescription(classdescription);
+		//t.setClassdescription(classdescription);
 		t.setSection(section);
 		t.setRoom(room);
 		
 		t.setSubject(subject);
-		t.setTeachername(teachername);
+		//t.setTeachername(teachername);
 		t.setMailid(mailid);
-		t.setPassword(password);
+		///t.setPassword(password);
 		t.setClasscode(r.generateAlphaNumeric(6));
 		
-		System.out.println(t.getClasscode());
+		System.out.println("randomly generated alphanumeric classcode:"+t.getClasscode());
 		
 		
 		try {

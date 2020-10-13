@@ -2,19 +2,19 @@ package com.SPASM.model;
 
 public class Teacher {
 	private String classname;
-	private String classdescription;
+	//private String classdescription;
 	private String section;
 	private String room;
 	private String subject;
 	private String mailid;
-	private String teachername;
-	public String getTeachername() {
-		return teachername;
-	}
-	public void setTeachername(String teachername) {
-		this.teachername = teachername;
-	}
-	private String password;
+	//private String teachername;
+	//public String getTeachername() {
+		//return teachername;
+	//}//
+	//public void setTeachername(String teachername) {
+		//this.teachername = teachername;
+	//}
+	//private String password;
 	private String classcode;
 	public String getClasscode() {
 		return classcode;
@@ -28,12 +28,12 @@ public class Teacher {
 	public void setClassname(String classname) {
 		this.classname = classname;
 	}
-	public String getClassdescription() {
-		return classdescription;
-	}
-	public void setClassdescription(String classdescription) {
-		this.classdescription = classdescription;
-	}
+	//public String getClassdescription() {
+		//return classdescription;
+	//}
+	//public void setClassdescription(String classdescription) {
+		//this.classdescription = classdescription;
+	//}
 	public String getSection() {
 		return section;
 	}
@@ -58,12 +58,12 @@ public class Teacher {
 	public void setMailid(String mailid) {
 		this.mailid = mailid;
 	}
-	public String getPassword() {
-		return password;
-	}
-	public void setPassword(String password) {
-		this.password = password;
-	}
+//	public String getPassword() {
+//		return password;
+//	}
+//	public void setPassword(String password) {
+//		this.password = password;
+//	}
 	@Override
 	public String toString() {
 		return "Teacher [classcode=" + classcode + "]";
