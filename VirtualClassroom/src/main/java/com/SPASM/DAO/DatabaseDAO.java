@@ -6,8 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.SPASM.model.PostMsg;
+import com.SPASM.model.ReplyModel;
 import com.SPASM.model.Student;
 import com.SPASM.model.Teacher;
+
 
 public class DatabaseDAO {
 	String url="jdbc:mysql://localhost:3306/virtualclassroom";
@@ -112,7 +114,37 @@ public void msgInsert(PostMsg h) throws ClassNotFoundException {
 		e.printStackTrace();
 	}
 }
-
+public void insertReply(ReplyModel c) throws ClassNotFoundException {
+	//	System.out.println(h.getNew_com_code()+h.getNew_com_text());
+		//driver();
+	Class.forName("com.mysql.cj.jdbc.Driver");
+		String sql="INSERT INTO upload_comment (msg_id,comment,date_cmnt,time_cmnt) VALUES (?,?,?,?)";
+		try
+		{
+			Connection con=DriverManager.getConnection(url, user, password);
+			
+			
+			java.util.Date utilDate = new java.util.Date();
+	        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	        java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+	        
+			PreparedStatement st=con.prepareStatement(sql);
+			st.setString(1,c.getNew_reply_code());
+			st.setString(2,c.getNew_reply_text());
+			
+			
+			st.setDate(3, sqlDate);
+			st.setTime(4, sqlTime);
+			
+			
+			int i=st.executeUpdate();
+			System.out.println(i+"row inserted teacher table");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
 
 
 }

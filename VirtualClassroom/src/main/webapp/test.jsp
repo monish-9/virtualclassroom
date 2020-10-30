@@ -12,9 +12,9 @@
 					
 					<!--database connectivity-->
 		<%
-		String quary = "select * from test1 where classcode=2";
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		try {
+			String quary = "select * from test1 where classcode=2";
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				try {
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
 
 			System.out.println("conn");

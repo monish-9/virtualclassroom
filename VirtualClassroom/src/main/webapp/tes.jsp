@@ -14,8 +14,8 @@
 <h1>Welcome to virtual classroom</h1>
 <a href="index.jsp"><button>Create</button></a>
 <a href="JoinClass.jsp"><button>Join</button></a>
-<% 
-Class.forName("com.mysql.cj.jdbc.Driver");
+<%
+	Class.forName("com.mysql.cj.jdbc.Driver");
 String sql="SELECT * FROM teacher";
 try
 {
@@ -24,7 +24,7 @@ try
 	ResultSet rs=st.executeQuery(sql);
 	  if(!rs.isBeforeFirst())
       {
-          %>
+%>
              <div><%out.print("No Files!"); %></div>
           <%
       }    

@@ -34,7 +34,8 @@
 	}
 	%>
 
-
+<%!String text;
+int i;%>
 	<div class="container-fluid">
 		<%
 			
@@ -47,8 +48,8 @@
 		<!--database connectivity-->
 		<%
 			String quary = "select * from teacher where classcode=?";
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				try {
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 
 			
@@ -71,7 +72,7 @@
 
 		<%
 			}
-		while (rs.next()) {
+				while (rs.next()) {
 		%>
 		<div class="container  pl-md-5 pr-md-5">
 			<div class="container  bg-primary  mt-5 shadow-sm first-div-radius"
@@ -176,10 +177,10 @@
 					
 						<!--database connectivity for post msg-->
 		<%
-		String sql = "SELECT id,post FROM upload WHERE classcode=?";
-	
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		try {
+			String sql = "SELECT id,post FROM upload WHERE classcode=?";
+			
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				try {
 			Connection co = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 
 			
@@ -202,7 +203,7 @@
 
 		<%
 			}
-			%>
+		%>
 			
 			
 				<!-- post msg and file upload manupulation in form -->
@@ -236,21 +237,19 @@
 			
 			
 			<%
-		while (r.next()) {
-		%>
+																while (r.next()) {
+																	//text=rs.getString("post");
+																	i=r.getInt("id");
+															%>
 		
 			<!-- design card for upload msg and file -->
 					
 					
 					    
+					 <div class="comment" id="<%out.println(i);%>">
+						<ul class="list-group mt-4">
 					  
-					<ul class="list-group mt-4">
-					  
-    				<li class="list-group-item"> <%out.println(r.getString("post"));
-    				
-    			System.out.println("msg id:"+r.getInt("id"));
-    			int id=r.getInt("id");
-    				%></li>
+    						<li class="list-group-item"> <%out.println(r.getString("post"));%></li>
     				
     				
 						
@@ -261,19 +260,18 @@
 						
 						<!--database connectivity for comment-->
 		<%
-		
-		String sql1 = "SELECT comment FROM upload_comment WHERE msg_id=?";
-		Class.forName("com.mysql.cj.jdbc.Driver");
-		try {
+			String sql1 = "SELECT comment FROM upload_comment WHERE msg_id=?";
+				Class.forName("com.mysql.cj.jdbc.Driver");
+			try {
 			Connection co1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 
 			
 			PreparedStatement s1=co1.prepareStatement(sql1);
-			//PreparedStatement p=co.prepareStatement(sql1);
-			s1.setInt(1, id);
-			//p.setString(1,code);
+				//PreparedStatement p=co.prepareStatement(sql1);
+			s1.setInt(1, i);
+			   //p.setString(1,code);
 			ResultSet r1=s1.executeQuery();
-			//ResultSet o=p.executeQuery();
+			    //ResultSet o=p.executeQuery();
 
 			if (!r1.isBeforeFirst()) {
 		%>
@@ -301,22 +299,37 @@
 					
 					<%} %>
 					
-					
-					<li class="list-group-item"> 
-    				 <form method="post" id="post_cmnt">
+					<!-- from for reply -->
+					  <li class="list-group-item rep"> 
+    				   <form >
 						  <div class="input-group" >
 						
 						
 						  <textarea class="form-control md-textarea"  aria-label="With textarea" style="height:3vw;border-radius:50px 0px 0px 50px;" id="cmnt" ></textarea>
 						  <div class="input-group-prepend  ">
-    						<span class="input-group-text bg-white" onclick="call('post')" style="height:3vw;border-radius:0px 50px 50px 0px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></span>
+    						<a id="reply" name="<%out.println(i); %>" class="link-reply input-group-text bg-white"  style="height:3vw;border-radius:0px 50px 50px 0px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
   						</div>
 						</div>
 						 </form>
+						 
+						<!-- <form >
+						 <div class="input-group" >
+						<div id="first" style="margin-top:30px;">
+						<textarea class="form-control md-textarea"  aria-label="With textarea" style="height:3vw;border-radius:50px 0px 0px 50px;" id="cmnt" ></textarea>
+						
+						<div class="input-group-prepend  ">
+						<a class="link-reply input-group-text bg-white" id="reply" name="<%//out.println(i); %>"  style="height:3vw;border-radius:0px 50px 50px 0px;"><i  class="fa fa-paper-plane-o"  id=<%//out.println(rs.getInt("id")); %> aria-hidden="true"></i></a>
+						</div>
+						</div>
+						</form>-->
+
 						</li>
 					
 					
+					
+					
 				</ul>
+				</div>
 			<%
 			
 		} catch (Exception e) {
@@ -433,6 +446,24 @@
 							$("#previous_content").remove();
 							
 						})
+						
+							$("a#reply")
+														.one(
+																"click",
+																function() {
+																	//$(".rep").remove();                                                                                          
+																	var comCode = $(this).attr(
+																			"name");
+																	var parent = $(this).parent();
+																	var data = "<br> <form action='ReplyServlet' method='post' id='post_text'><textarea class='form-text' name='new-reply' id='new-reply' rows='2' style='width:550px;height:50px;' ></textarea><input type='hidden' name='code' value='"+comCode+"'><input type='submit'  value='reply'></form>";
+																	parent.append(data);
+																	
+																	
+																	alert(comCode);
+
+																});
+															
+											
 					
 
 					});
@@ -451,12 +482,12 @@
 				document.getElementById("demo")
 				}
 
-function call(type)
-{
-	document.getElementById("post_cmnt").action="PostServlet";
-	document.getElementById("post_cmnt").method=type;
-	document.getElementById("post_cmnt").submit();
-	}
+//function call(type)
+//{
+	//document.getElementById("post_cmnt").action="PostServlet";
+	///document.getElementById("post_cmnt").method=type;
+	//document.getElementById("post_cmnt").submit();
+	//}
 
 	
 </script>

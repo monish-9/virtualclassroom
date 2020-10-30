@@ -148,13 +148,13 @@
 
 <!-- database connectivity -->
 	<%
-	Class.forName("com.mysql.cj.jdbc.Driver");
-	String sql = "SELECT * FROM teacher";
-	try {
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
-		Statement st = con.createStatement();
-		ResultSet rs = st.executeQuery(sql);
-		if (!rs.isBeforeFirst()) {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		String sql = "SELECT * FROM teacher";
+		try {
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			Statement st = con.createStatement();
+			ResultSet rs = st.executeQuery(sql);
+			if (!rs.isBeforeFirst()) {
 	%>
 	
 	
