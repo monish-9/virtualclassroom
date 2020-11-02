@@ -2,6 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.SPASM.model.Teacher"%>
 <%@page import="java.sql.*"%>
+<%@page import="java.text.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -17,6 +18,82 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css"
 	href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<style>
+	
+  	.comment textarea
+  	{
+  		box-sizing: border-box;
+  		border-radius: 0px;
+  		padding-top:23px;
+  		padding-left:17px;
+  		padding-right:17px;
+  		font-size: 19px;
+  		font-weight:500;
+  		font-family:sans-serif;
+  	}
+  	.comment form div 
+  	{
+		position: relative;
+
+  	}
+  	.comment form div label
+  	{
+  		
+  		position: absolute;
+  		top: 15px;
+  		left:16px;
+  		color: black;
+  		font-size: 16px;
+  		font-family:sans-serif;
+  		transition: .3s;
+  		pointer-events: none;
+  		
+  		
+  		
+  		
+  	}
+  	.comment textarea:focus ~ label,.comment textarea:valid ~ label
+  	{
+  		top:8px;
+  		left: 16px;
+  		font-size: 12px;
+  		font-family:sans-serif;
+  		color: gray;
+  	
+
+  	}
+  
+  .bar
+  {
+  	position: relative;
+  	display:block;
+  }
+  
+  .bar:after, .bar:before
+  {
+  	content:"";
+  	width:0;
+  	height:1px;
+  	bottom:1px;
+  	background:black;
+  	position: absolute;
+  	transition: .5s;
+  	
+  	
+  }
+  .bar:before
+  {
+  	left:50%;
+  } .bar:after
+  {
+  	right:50%;
+  }
+  .comment textarea:focus ~ .bar:before, .comment textarea:focus ~ .bar:after
+  	{
+  		width:50%;
+  	}
+	
+	</style>
 
 <title>
 	<%
@@ -34,9 +111,9 @@
 	}
 	%>
 
-<%!String text;
-int i;%>
-	<div class="container-fluid">
+<!-- declaration.... -->
+<%!int i; %>
+	<div class="container-fluid "> <!-- 1st div.... -->
 		<%
 			
 		String code = request.getParameter("code");
@@ -74,7 +151,7 @@ int i;%>
 			}
 				while (rs.next()) {
 		%>
-		<div class="container  pl-md-5 pr-md-5">
+		<div class="container  pl-md-5 pr-md-5 ">
 			<div class="container  bg-primary  mt-5 shadow-sm first-div-radius"
 				id="div1" style="height: 220px;">
 
@@ -105,9 +182,9 @@ int i;%>
 
 
 
-				<div class="text-center">
+				<div class="text-center text-white ">
 
-					<div class="text-white fa fa-chevron-down" id="down-arrow"
+					<div class=" fa fa-chevron-down" id="down-arrow"
 						style="cursor: pointer; margin-top: 70px;"></div>
 
 				</div>
@@ -130,12 +207,12 @@ int i;%>
 				</div >
 				<br>
 				<div class="d-inline-block">
-					<p class="text-black">room:</p>
+					<p class="text-black">name:</p>
 				</div>
 				<div class="d-inline-block">
 					<p class="text-black">
 						<%
-							out.println(rs.getString("room"));
+							out.println(rs.getString("name"));
 						%>
 					</p>
 				</div>
@@ -147,14 +224,12 @@ int i;%>
 		<div class="container mt-4 ">
 			<div class="row">
 				<div class="col-md-3 col-sm-12 pl-md-5">
-					<div
-						class="container  shadow-sm first-div-radius d-md-block d-none d-sm-none "
-						style="border: 1px solid grey; height: 130px;">
-						<h6 class="text-black  ">Upcoming</h6>
-						<p class="text-dark position-static ">no work due soon</p>
+					<div class="card    d-md-block d-none d-sm-none pl-4 pt-4" style="border-radius:8px; height: 130px;">
+						<h6 class=" card-text ">Upcoming</h6>
+						<p class=" position-static card-text">No work due soon</p>
 						<div class="clearfix ">
-							<h6 class="float-right text-black ">
-								<a href="#">View all</a>
+							<h6 class="float-right card-text mr-2 " >
+								<a href="#" class="text-dark" >View all</a>
 							</h6>
 
 						</div>
@@ -162,11 +237,15 @@ int i;%>
 				</div>
  						 <!-- end -->
  						 
-				<div class="col-md-9 pr-md-5 col-12">
-					<div class="container-sm  shadow first-div-radius  p-3 "
-						style="height: 70px;" id="text_something">
-						<p class="text-gray ml-5 ">say something with your class...</p>
-
+				<div class="col-md-9 pr-md-5 col-12 ">
+					<div class="card    p-3 "
+						style="height: 70px;border-radius: 8px; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);" id="text_something">
+						
+						<span >
+						<span class="fa fa-user-circle fa-2x float-left " style="line-height:39px;color:gray;" aria-hidden="true"></span>
+						<span class="text-gray  " style="line-height:2vw;margin-left:14px;" >say with your class...</span>
+						</span>
+						
 					</div>
 					
 					
@@ -177,7 +256,7 @@ int i;%>
 					
 						<!--database connectivity for post msg-->
 		<%
-			String sql = "SELECT id,post FROM upload WHERE classcode=?";
+			String sql = "SELECT id,post,date FROM upload WHERE classcode=?";
 			
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				try {
@@ -210,22 +289,26 @@ int i;%>
 
 
 
-					<div class="container shadow first-div-radius p-4"
-						style="display: none;" id="post_something">
+					<div class="card  p-4 "
+						style="display: none; box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);border-radius: 8px;" id="post_something">
 						<p>for</p>
-						<div>
+						<div class="container comment">
 
-							<form  method="post" id="post_text">
-								<div class="form-group">
-								<textarea class="form-control" id="msg_post"
-									placeholder="Share with your class" rows="10" name="msg"
-									style="height: 100px;"></textarea>
+							<form  method="post" id="comment" name="comment">
+								<div class="form-group" >
+								<textarea class="form-control" id="comment_post"
+									 rows="4" cols="60" name="msg" required="required" 
+									style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;"></textarea>
+									<label>Share with your class</label>
+									<div class="bar"></div>
 								</div>
 								
 
 							</form>
-							<button type="submit" class="btn btn-dark" id="post_btn" onclick="servletCall('post')">Post</button>
-							<button class="btn btn-light " id="close_btn">close</button>
+							<div class="clearfix">
+							<button type="submit" class="btn btn-dark float-right ml-3" id="post_btn" name="post_btn" disabled onclick="servletCall('post')" style="box-shadow: none!important;">Post</button>
+							<button class="btn btn-light float-right" id="close_btn">close</button>
+							</div>
 						</div>
 
 					</div>
@@ -244,12 +327,27 @@ int i;%>
 		
 			<!-- design card for upload msg and file -->
 					
-					
+					<%//Format f=new SimpleDateFormat("dd-mmm-yyyy");
+					//String ss=f.format(r.getDate("date")); %>
 					    
-					 <div class="comment" id="<%out.println(i);%>">
-						<ul class="list-group mt-4">
+					 <div class="card  comment mt-4" id="<%out.println(i);%>" style="border-radius: 8px;">
+						<div class="card-header bg-white" style="border-radius:  8px 8px 0px 0px;">
 					  
-    						<li class="list-group-item"> <%out.println(r.getString("post"));%></li>
+    						
+    							<div>
+    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+    								<span class="float-left">
+    								<div class="ml-3" style="line-height:21px;">Monish Paul</div>
+    								<div class=" ml-3" style="line-height:12px; font-size: 11px;"><%out.println(r.getDate("date").toLocaleString().subSequence(0, 7));%></div>
+    								</span>
+    							</div>
+    							
+    							<div class=" float-bottom mt-5">
+    							
+    						 		<%out.println(r.getString("post"));%>
+    						 	</div>
+    					</div>
+    						
     				
     				
 						
@@ -260,7 +358,7 @@ int i;%>
 						
 						<!--database connectivity for comment-->
 		<%
-			String sql1 = "SELECT comment FROM upload_comment WHERE msg_id=?";
+			String sql1 = "SELECT comment,date_cmnt FROM upload_comment WHERE msg_id=?";
 				Class.forName("com.mysql.cj.jdbc.Driver");
 			try {
 			Connection co1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
@@ -291,25 +389,38 @@ int i;%>
 		while (r1.next()) {
 		%>
 						
+						<div class="card-body reply_list "   >
+					
+								<div>
+    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+    								<span class="text-left">
+    			
+    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;">Monish Paul &nbsp<%out.println(r1.getDate("date_cmnt").toLocaleString().subSequence(0, 7)); %></div>
+    								<div  style="line-height:35px;margin-left:45px;"><%out.println(r1.getString("comment")); %>   </div>
+    								</span>
+    							</div>
+    							
+    			
 						
-						
-						
-    				<li class="list-group-item"> <%out.println(r1.getString("comment"));%></li>
+    				 
 					 
+					</div>
 					
 					<%} %>
 					
+					
 					<!-- from for reply -->
-					  <li class="list-group-item rep"> 
+					  <div class="card-footer  bg-white rep" style="border-radius:  0px 0px 8px 8px;"> 
     				   <form >
-						  <div class="input-group" >
+						 <!--   <div class="input-group" >-->
 						
 						
-						  <textarea class="form-control md-textarea"  aria-label="With textarea" style="height:3vw;border-radius:50px 0px 0px 50px;" id="cmnt" ></textarea>
-						  <div class="input-group-prepend  ">
-    						<a id="reply" name="<%out.println(i); %>" class="link-reply input-group-text bg-white"  style="height:3vw;border-radius:0px 50px 50px 0px;"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
+						  <!--  <textarea class="form-control md-textarea"  aria-label="With textarea" style="height:3vw;border-radius:50px 0px 0px 50px;" id="cmnt" ></textarea>
+						  <div class="input-group-prepend  ">  input-group-text  css height:3vw;border-radius:0px 50px 50px 0px;-->
+						  <div class="text-center">
+    						<a class="btn btn-light btn-block text-primary" id="reply" name="<%out.println(i); %>" class="link-reply bg-white" role="button" style="">Reply</a>
   						</div>
-						</div>
+						
 						 </form>
 						 
 						<!-- <form >
@@ -323,12 +434,12 @@ int i;%>
 						</div>
 						</form>-->
 
-						</li>
+						</div>
 					
 					
 					
 					
-				</ul>
+				
 				</div>
 			<%
 			
@@ -356,12 +467,12 @@ int i;%>
 				
 					
 					
-					<div id ="previous_content" class="container mt-4  shadow first-div-radius  p-3 mb-sm-3"
-						style="border: 1px solid grey; height: 230px;">
-						<h3>Communicate with your class here</h3>
+					<div id ="previous_content" class=" border-dark card mt-4 p-3 "
+						style="border-radius:8px; height: 210px; margin-bottom:12px;">
+						<h3 class="card-title">Communicate with your class here</h3>
 
-						<h6>Create and schedule announcements</h6>
-						<h6>Respond to student posts</h6>
+						<h6 class="card-text">Create and schedule announcements</h6>
+						<h6 class="card-text">Respond to student posts</h6>
 					</div>
 
 
@@ -411,75 +522,137 @@ int i;%>
 	integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
 	crossorigin="anonymous"></script>
 
-<script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
 
-						$("#down-arrow")
-								.click(
-										function() {
-											$("#div2").toggle();
-											$("#div1")
-													.toggleClass(
-															"container-fluid > container  second-div-radius");
-											$("#down-arrow")
-													.toggleClass(
-															" container-fluid > container> text-center> fa fa-chevron-up")
+
+	<!-- clint side manupulation using jquery and js.... -->
+	
+<script type="text/javascript">
+	$(document).ready(function() {
+						
+						$("#down-arrow").click(function() {
+							$("#down-arrow").addClass("fa fa-chevron-up");
+								$("#div2").toggle();
+								$("#div1").toggleClass("second-div-radius");
+								//$("#down-arrow").toggleClass(" container-fluid > container> text-center> fa fa-chevron-up")
 											//$("#up").children('.fa').toggleClass('fa-chevron-up fa-chevron-down');
+								
+								
 										});
 
 						$("#text_something").click(function() {
 
 							$("#post_something").show();
 							$("#text_something").hide();
-						})
+						});
 
-						$("#close").click(function() {
+						$("#close_btn").click(function() {
 
 							$("#post_something").hide();
 							$("#text_something").show();
-						})
+						});
 
 						$("#post_btn").click(function() {
 
 							$("#previous_content").remove();
 							
-						})
+						});
 						
-							$("a#reply")
-														.one(
-																"click",
-																function() {
-																	//$(".rep").remove();                                                                                          
-																	var comCode = $(this).attr(
-																			"name");
-																	var parent = $(this).parent();
-																	var data = "<br> <form action='ReplyServlet' method='post' id='post_text'><textarea class='form-text' name='new-reply' id='new-reply' rows='2' style='width:550px;height:50px;' ></textarea><input type='hidden' name='code' value='"+comCode+"'><input type='submit'  value='reply'></form>";
-																	parent.append(data);
+						$("a#reply").one("click",function() {
+							//$(".rep").remove();                                                                                          
+							var comCode = $(this).attr("name");
+							var parent = $(this).parent();
+							var data = "<br> <form action='ReplyServlet' method='post' id='comment'> <div class='input-group input-group-sm rounded-lg '> <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='resize:none;overflow:hidden;box-shadow:none;!important'  name='new-reply' id='new-reply' rows='2' ></textarea><input type='hidden' name='code' value='"+comCode+"'><div class='input-group-append' id='button-addon3'><input type='submit' class='btn btn-primary' disabled id='reply-btn' value='Send'  style='box-shadow:none;!important'></div></div></form>";
+							parent.append(data);
 																	
 																	
-																	alert(comCode);
+						    alert(comCode);
 
-																});
-															
-											
+							//auto increasing of textarea for reply
+							$("#new-reply").on("keyup input",function(){
+								
+								
+								var empty1=false;
+								$(this).css('height','auto').css('height',this.scrollHeight+(this.offsetHeight-this.clientHeight));
+
+								$("#new-reply").each(function(){
+								if($(this).val()=='')
+									{
+								
+										empty1=true;
+									}
+								});
+								if(empty1)
+									{
+										$('#reply-btn').attr('disabled', 'disabled');
+									}
+								else{
+									$('#reply-btn').removeAttr('disabled');
+									}
+								
+								});								
+												
+						
+						//$("#bo").click(function(){
+						//$(".reply_list").css('display','none');
+						//});
+
+						});
+
+
+						//auto increasing of textarea for comment
+
+						$("#comment_post").on("keyup input",function(){
+							//var x=$(this).val;
+							//alert(x);
+							var empty=false;
+							$(this).css('height','auto').css('height',this.scrollHeight+(this.offsetHeight-this.clientHeight));
+
+							$("#comment_post").each(function(){
+							if($(this).val()=='')
+								{
+							//document.getElementById("post_btn").disabled=false;
+									empty=true;
+								}
+							});
+							if(empty)
+								{
+									$('#post_btn').attr('disabled', 'disabled');
+								}
+							else{
+								$('#post_btn').removeAttr('disabled');
+								}
+							
+							});
+						
 					
 
 					});
-
-
+		
 			//call PostServlet using js
 			
 			
 			function servletCall(methodType)
 			{
 				
-				document.getElementById("post_text").action="PostServlet";
-				document.getElementById("post_text").method=methodType;
-				document.getElementById("post_text").submit();
 				
-				document.getElementById("demo")
+				var textarea=document.forms["comment"]["msg"].value;
+				if(textarea=="")
+					{
+						
+					//document.getElementById("post_btn").disabled=true;
+					}
+				else{
+					
+				document.getElementById("comment").action="PostServlet";
+				document.getElementById("comment").method=methodType;
+				document.getElementById("comment").submit();
+				}
+				//var content=document.getElementById("previous_content");
+				//content.remove();
+				//const parent=previous_content.getElementByTagName("h3");
+				//alert(parent);
+				//document.getElementById("demo")
+				
 				}
 
 //function call(type)

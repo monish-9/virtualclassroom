@@ -4,7 +4,7 @@ public class Teacher {
 	private String classname;
 	//private String classdescription;
 	private String section;
-	private String room;
+	private String name;
 	private String subject;
 	private String mailid;
 	//private String teachername;
@@ -40,11 +40,12 @@ public class Teacher {
 	public void setSection(String section) {
 		this.section = section;
 	}
-	public String getRoom() {
-		return room;
+	
+	public String getName() {
+		return name;
 	}
-	public void setRoom(String room) {
-		this.room = room;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getSubject() {
 		return subject;

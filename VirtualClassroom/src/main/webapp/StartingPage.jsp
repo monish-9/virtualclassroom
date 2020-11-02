@@ -19,6 +19,89 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  
+  <style type="text/css">
+  .createbody input
+  	{
+  		box-sizing: border-box;
+  		
+  		padding-top:23px;
+  		padding-left:17px;
+  		padding-right:17px;
+  		font-size: 17px;
+  		font-weight:500;
+  		font-family:sans-serif;
+  		color: #17202A ;
+  		border-bottom: 1px solid black;
+  	}
+  	
+  .createbody form div 
+  	{
+		position: relative;
+
+  	}
+  	
+  	.createbody form div label
+  	{
+  		
+  		position: absolute;
+  		top: 19px;
+  		left:16px;
+  		color:#CACFD2;
+  		font-size: 16px;
+  		font-family:sans-serif;
+  		transition: .3s;
+  		pointer-events: none;
+  	}
+  	.createbody input:focus ~ label,.createbody input:valid ~ label
+  	{
+  		top:8px;
+  		left: 16px;
+  		font-size: 12px;
+  		font-family:sans-serif;
+  		color: #21618C  ;
+  		border-radius:8px 8px 0px 0px;
+
+  	}
+  	.createbody input:valid ~ label
+  	{
+  		color: #273746 ;
+  	}
+  
+  	
+  	 .bar
+  {
+  	position: relative;
+  	display:block;
+  }
+  
+  .bar:after, .bar:before
+  {
+  	content:"";
+  	width:0;
+  	height:2px;
+  	bottom:0px;
+  	background: blue ;
+  	position: absolute;
+  	transition: .5s;
+  	
+  	
+  }
+  .bar:before
+  {
+  	left:50%;
+  } .bar:after
+  {
+  	right:50%;
+  }
+  .createbody input:focus ~ .bar:before, .createbody input:focus ~ .bar:after
+  	{
+  		width:50%;
+  	}
+  
+	
+  
+  </style>
    
 <title>e-Ducation</title>
 </head>
@@ -76,10 +159,10 @@
 			
 
 																		<!-- Modal form -->
-				<div class="modal fade" id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				<div class="modal fade " id="staticBackdrop1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered ">
 				  
-				    <div class="modal-content" style="border-radius:8px;">
+				    <div class="modal-content " style="border-radius:8px;">
 				    
 				      <div class="modal-header">
 				      
@@ -90,24 +173,33 @@
 				        	</button>
 				        	
 				      </div>
-				      <div class="modal-body">
+				      <div class="modal-body createbody">
 				  		<form id="create_class_Form">
 				        	
 				          	<div class="form-group " style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-				            	<input placeholder="Class name(required)" id="cname" type="text" name="classname" class="form-control shadow-sm " style="background:none;outline:none;border:none; height:4rem;">
+				            	
+				            	<input placeholder="" id="cname" type="text" name="classname" required class="form-control shadow-sm " style="background:none;outline:none;border:none; height:4rem;">
+				            	<label>Class name(required)</label>
+				            	<div class="bar"></div>
 				          	</div>
 				          
 				          
 				           	<div class="form-group " style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-				           		<input type="text" class="form-control  shadow-sm" placeholder="Section" name="section" style="background:none;outline:none;border:none;height:4rem;">
+				           		<input type="text"  required class="form-control  shadow-sm" placeholder="" name="section" style="background:none;outline:none;border:none;height:4rem;">
+				           		<label>Section</label>
+				           		<div class="bar"></div>
 				           	</div>
 				           	
 							<div class="form-group" style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input type="text"  class="form-control  shadow-sm" placeholder="Room" name="room" style="background:none;outline:none;border:none;height:4rem;">
+								<input type="text"   required class="form-control  shadow-sm" placeholder="" name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
+								<label>Name</label>
+								<div class="bar"></div>
 							</div>
 							
 							<div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input type="text" class="form-control  shadow-sm" placeholder="Subject" name="subject" style="background:none;outline:none;border:none;height:4rem;">
+								<input type="text"  required class="form-control  shadow-sm" placeholder="" name="subject" style="background:none;outline:none;border:none;height:4rem;">
+								<label>Subject</label>
+								<div class="bar"></div>
 							</div>
 					
 						<!-- <div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
@@ -115,7 +207,9 @@
 							</div>-->
 							
 							<div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input id="mail"  class="form-control  shadow-sm" placeholder="Mail Id" type="text" name="mailid" style="background:none;outline:none;border:none;height:4rem;">
+								<input id="mail"   required class="form-control  shadow-sm" placeholder="" type="text" name="mailid" style="background:none;outline:none;border:none;height:4rem;">
+								<label>Mail Id</label>
+								<div class="bar"></div>
 							</div>
 							
 					<!--  <div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
@@ -127,7 +221,7 @@
 				      </div>
 				      <div class="modal-footer">
 				        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
-				        <button type="button" class="btn btn-light "  id="submit"  onclick="callServlet('Post')">Create</button>
+				        <button type="button" class="btn btn-light " disabled id="submit"  onclick="callServlet('Post')">Create</button>
 				      </div>
 				    </div>
 				  </div>
@@ -174,7 +268,7 @@
 
 				<div class="col-sm-6  col-lg-3 col-md-4 mt-3 p-1 p-md-2">
 
-					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-primary " style="height:95px; border-radius:10px 10px 0px 0px;">
 							<div class="fa fa-ellipsis-v float-right text-light" aria-hidden="true" style="opacity:95%;"></div>
 								<a class="text-light" href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>">
@@ -261,17 +355,31 @@
   	
   	<script type="text/javascript">
   	$(document).ready(function(){
-		//for input type text...
-		$("#submit").attr('disabled',true);
-		$("#cname").on('keyup',function(){
-	//if($(this).val >=1)
-		//{
-		$("#submit").attr('disabled',false);
-		//}
+		
 
+		//for input type text 
+		$("#cname").on("keyup input",function(){
+			
+			
+			var empty2=false;
+		
+
+			$("#cname").each(function(){
+			if($(this).val()=='')
+				{
+			
+					empty2=true;
+				}
 			});
+			if(empty2)
+				{
+					$('#submit').attr('disabled', 'disabled');
+				}
+			else{
+				$('#submit').removeAttr('disabled');
+				}
 			
-			
+			});				
 
 		
 		//for input type checkbox...

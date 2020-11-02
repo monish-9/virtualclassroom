@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
+
 import com.SPASM.model.PostMsg;
 import com.SPASM.model.ReplyModel;
 import com.SPASM.model.Student;
@@ -23,7 +24,7 @@ public class DatabaseDAO {
 		
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		String sql="INSERT INTO teacher (classname, section, room, subject, mailid,classcode) VALUES (?,?,?,?,?,?)";
+		String sql="INSERT INTO teacher (classname, section, name, subject, mailid,classcode) VALUES (?,?,?,?,?,?)";
 		try
 		{
 			Connection con=DriverManager.getConnection(url, user, password);
@@ -31,7 +32,7 @@ public class DatabaseDAO {
 			st.setString(1,h.getClassname());
 			//st.setString(2,h.getClassdescription());
 			st.setString(2,h.getSection());
-			st.setString(3,h.getRoom());
+			st.setString(3,h.getName());
 			st.setString(4,h.getSubject());
 			//st.setString(6, h.getTeachername());
 			st.setString(5,h.getMailid());

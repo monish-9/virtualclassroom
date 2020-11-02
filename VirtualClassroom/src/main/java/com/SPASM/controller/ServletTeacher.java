@@ -28,7 +28,7 @@ public class ServletTeacher extends HttpServlet {
 		String classname=request.getParameter("classname");
 		//String classdescription=request.getParameter("classdescription");
 		String section=request.getParameter("section");
-		String room=request.getParameter("room");
+		String name=request.getParameter("teacher_name");
 		
 		String subject=request.getParameter("subject");
 		//String teachername=request.getParameter("teachername");
@@ -38,7 +38,7 @@ public class ServletTeacher extends HttpServlet {
 		t.setClassname(classname);
 		//t.setClassdescription(classdescription);
 		t.setSection(section);
-		t.setRoom(room);
+		t.setName(name);
 		
 		t.setSubject(subject);
 		//t.setTeachername(teachername);
