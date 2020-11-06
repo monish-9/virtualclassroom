@@ -16,25 +16,45 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   
  <script type="text/javascript">
-	function test()
-	{
-		var mail=document.getElementById("mail").value;
-	var regex=/^([a-zA-Z0-9\.-]+)@([a-zA-Z-]+).([a-z]{2,8})(\.[a-z]{2,8})$/;
+	//function test()
+	//{
+		//var mail=document.getElementById("mail").value;
+	//var regex=/^([a-zA-Z0-9\.-]+)@([a-zA-Z-]+).([a-z]{2,8})(\.[a-z]{2,8})$/;
 		
-		if(regex.test(mail))
+	//	/if(regex.test(mail))
+	//		{
+		//	onsubmit="return test()"
+				//document.getElementById("mail").style.border= "3px solid green";
+				//return true;
+				
+			//}
+	//else
+		//	//{
+			//document.getElementById("mail").style.border= "3px solid red";
+		//return false;
+				
+			//}
+	//}
+$(document).ready(function(){
+	$("#mail").on("keyup input",function(){
+
+		var regex=/^([a-zA-Z0-9\.-]+)@([a-zA-Z-]+).([a-z]{2,8})(\.[a-z]{2,8})$/;
+		if(regex.test($(this).val()))
 			{
-				
-				document.getElementById("mail").style.border= "3px solid green";
-				return true;
-				
+			document.getElementById("mail").style.border= "3px solid green";
+			return true;
 			}
 		else
 			{
 			document.getElementById("mail").style.border= "3px solid red";
-		return false;
-				
+			return false;
 			}
-	}
+
+		});
+	
+});
+
+	
 </script>
   
   
@@ -45,7 +65,7 @@
 
  <div class="container">
 
-	<form onsubmit="return test()" action="ServletTeacher" name="createclass" method="post">
+	<form  action="ServletTeacher" name="createclass" method="post">
 	<h2>Class Details</h2>
 		Class Name (required)<br>
 		<input type="text" name="classname" required><br>

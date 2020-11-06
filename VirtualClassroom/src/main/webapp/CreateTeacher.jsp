@@ -3,6 +3,7 @@
 	pageEncoding="ISO-8859-1" import="com.SPASM.model.Teacher"%>
 <%@page import="java.sql.*"%>
 <%@page import="java.text.*"%>
+<%@page import="java.io.*"%>
 
 <!DOCTYPE html>
 <html>
@@ -92,7 +93,9 @@
   	{
   		width:50%;
   	}
-	
+	#children:hover{
+	background:#f7f7f7;
+	}
 	</style>
 
 <title>
@@ -112,16 +115,39 @@
 	%>
 
 <!-- declaration.... -->
-<%!int i; %>
-	<div class="container-fluid "> <!-- 1st div.... -->
+<%!int i; String com;String dt;%>
+
+	
 		<%
 			
 		String code = request.getParameter("code");
 		String classname=request.getParameter("classname");
+		String section=request.getParameter("section");
 		session.setAttribute("classcode", code);
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateTeacher.jsp:" + code);
 		%>
+		<!-- creationj of fixed nav bar -->
+		
+			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top justify-content-center " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
+			
+				<a href="#" class="navbar-brand">
+					
+				<%=classname %>
+					
+				</a>
+				
+				<nav class="navbar-nav p-5" >
+					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>">Stream</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>">People</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="">Grades</a>
+				
+				</nav>
+			
+			
+			</nav>
+		<div class="container-fluid"> <!-- 1st div.... -->
 		<!--database connectivity-->
 		<%
 			String quary = "select * from teacher where classcode=?";
@@ -152,8 +178,8 @@
 				while (rs.next()) {
 		%>
 		<div class="container  pl-md-5 pr-md-5 ">
-			<div class="container  bg-primary  mt-5 shadow-sm first-div-radius"
-				id="div1" style="height: 220px;">
+			<div class="container  bg-primary   shadow-sm first-div-radius"
+				id="div1" style="height: 220px;margin-top:86px;">
 
 				<h5 class="text-white">
 					<%
@@ -254,9 +280,9 @@
 					
 					
 					
-						<!--database connectivity for post msg-->
+						<!--database connectivity for post msg-- "SELECT id,post,date FROM upload WHERE classcode=?"-->
 		<%
-			String sql = "SELECT id,post,date FROM upload WHERE classcode=?";
+			String sql ="SELECT name,post,file,filename,upload.date,upload.id from upload INNER JOIN teacher ON upload.classcode=teacher.classcode WHERE upload.classcode=?" ;
 			
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				try {
@@ -294,7 +320,7 @@
 						<p>for</p>
 						<div class="container comment">
 
-							<form  method="post" id="comment" name="comment">
+							<form  method="post" id="comment" name="comment" enctype="multipart/form-data">
 								<div class="form-group" >
 								<textarea class="form-control" id="comment_post"
 									 rows="4" cols="60" name="msg" required="required" 
@@ -303,7 +329,9 @@
 									<div class="bar"></div>
 								</div>
 								
-
+								<label>choose file</label>
+								<input type="file" name="file_uploaded" >
+								
 							</form>
 							<div class="clearfix">
 							<button type="submit" class="btn btn-dark float-right ml-3" id="post_btn" name="post_btn" disabled onclick="servletCall('post')" style="box-shadow: none!important;">Post</button>
@@ -315,17 +343,18 @@
 
 
 					<!-- end -->
-			
-			
-			
-			
-			<%
-																while (r.next()) {
-																	//text=rs.getString("post");
-																	i=r.getInt("id");
-															%>
-		
-			<!-- design card for upload msg and file -->
+
+
+
+
+					<%
+						while (r.next()) {
+						//text=rs.getString("post");
+						i = r.getInt("id");
+						
+					%>
+
+					<!-- design card for upload msg and file -->
 					
 					<%//Format f=new SimpleDateFormat("dd-mmm-yyyy");
 					//String ss=f.format(r.getDate("date")); %>
@@ -337,7 +366,7 @@
     							<div>
     								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
     								<span class="float-left">
-    								<div class="ml-3" style="line-height:21px;">Monish Paul</div>
+    								<div class="ml-3" style="line-height:21px;"><%out.println(r.getString("name")); %></div>
     								<div class=" ml-3" style="line-height:12px; font-size: 11px;"><%out.println(r.getDate("date").toLocaleString().subSequence(0, 7));%></div>
     								</span>
     							</div>
@@ -346,19 +375,100 @@
     							
     						 		<%out.println(r.getString("post"));%>
     						 	</div>
+    						 	<% if(r.getBlob("file").length()!=0){
+    						 		
+    						 				//Clob c=r.getBlob("file");              
+    						 				//Reader rea=c.getCharacterStream();
+    						 		//FileWriter fw=new FileWriter("d:\\retrivefile.txt");  
+    						 		              
+    						 		//int i;  
+    						 		//while((i=rea.read())!=-1)  
+    						 		//fw.write((char)i);  
+    						 		              
+    						 		//fw.close();  
+    						 		//int l=r.getString("filename").length();
+    						 	if(r.getString("filename").endsWith("pdf")){
+    						 	%>
+    						 	
+							<a href="view_file.jsp?id=<%out.println(i);%>"
+								style="" class="text-decoration-none text-dark">
+
+								<div class="media mt-3 w-50 border rounded ">
+									<i
+										class=" text-decoration-none fa fa-file-pdf-o fa-4x  border p-1"
+										style=""></i>
+									<div class="media-body text-truncate mt-3 ml-3">
+										
+											<%
+												out.println(r.getString("filename"));
+											%><br>
+										pdf
+
+									</div>
+								</div>
+
+							</a>
+						
+							<%
+    						 	}
+    						 	else if(r.getString("filename").endsWith("docx"))
+    						 	
+    						 	{%>
+    						 	
+    						 	<a href="view_file.jsp?id=<%out.println(i);%>"
+								style="" class="text-decoration-none text-dark">
+
+								<div class="media mt-3 w-50 border rounded ">
+									<i
+										class=" text-decoration-none fa fa-file-text fa-4x  border p-1"
+										style=""></i>
+									<div class="media-body text-truncate mt-3 ml-3">
+										
+											<%
+												out.println(r.getString("filename"));
+											%><br>
+										docx
+
+									</div>
+								</div>
+
+							</a>
+							
+							<%}else if(r.getString("filename").endsWith("txt")) {%>
+    						 	
+    						 	<a href="view_file.jsp?id=<%out.println(i);%>"
+								style="" class="text-decoration-none text-dark">
+
+								<div class="media mt-3 w-50 border rounded ">
+									<i
+										class=" text-decoration-none fa fa-file-text-o fa-4x  border p-1"
+										style=""></i>
+									<div class="media-body text-truncate mt-3 ml-3">
+										
+											<%
+												out.println(r.getString("filename"));
+											%><br>
+										txt
+
+									</div>
+								</div>
+
+							</a>
+							<%} %>
+    						<%  	} %>
     					</div>
     						
     				
-    				
+    				<!-- view_file.jsp?id="<%//out.println(i);%> -->
 						
 						
 						
-						
+				<%!int child_row_count; %>		
 						
 						
 						<!--database connectivity for comment-->
 		<%
-			String sql1 = "SELECT comment,date_cmnt FROM upload_comment WHERE msg_id=?";
+			String sql1 = "SELECT * FROM upload_comment WHERE msg_id=?";
 				Class.forName("com.mysql.cj.jdbc.Driver");
 			try {
 			Connection co1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
@@ -370,45 +480,71 @@
 			   //p.setString(1,code);
 			ResultSet r1=s1.executeQuery();
 			    //ResultSet o=p.executeQuery();
+		
 
-			if (!r1.isBeforeFirst()) {
+%>
+	
+<%
+			if (r1.isBeforeFirst()) {
 		%>
 
 		<div>
 			<%
-				out.print("");
+				//out.print("");
 			%>
 		</div>
 
 
 		<%
-			}
+			//}
+
+			//if(child_row_count==2){
+				
+			//}else{
 			%>
-						
+			
+					<div class=" card-body child-comments " > 
 					<%
+					child_row_count=0;
 		while (r1.next()) {
 		%>
+						<%//com=r1.getString("comment"); 
+						 //dt=r1.getDate("date_cmnt").toLocaleString();
+						%>
 						
-						<div class="card-body reply_list "   >
 					
-								<div>
+					<!-- reply-list -->
+								
+								<div class="child  collapse in" id="collapseExample<%//out.println(i); %>"  >
+								
     								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
     								<span class="text-left">
     			
     								<div   style="line-height:16px;margin-left:45px;font-size: 13px;">Monish Paul &nbsp<%out.println(r1.getDate("date_cmnt").toLocaleString().subSequence(0, 7)); %></div>
     								<div  style="line-height:35px;margin-left:45px;"><%out.println(r1.getString("comment")); %>   </div>
     								</span>
+    								
     							</div>
     							
-    			
-						
-    				 
-					 
+    		<%child_row_count++;}%>
+    		
+    								
+    							
 					</div>
-					
-					<%} %>
-					
-					
+					<div class=" border-0 " style="">
+						<a class=" btn btn-white  ml-3 mb-2 " data-toggle="collapse" href="#collapseExample<%//out.println(i);%>" aria-expanded="false" aria-controls="collapseExample<%//out.println(i);%>" style="box-shadow:none;" role="button"   name="<%out.println(i);%>" id="children" > <span class="card-text" style="margin:0;"><%out.println(child_row_count);%>class comment</span></a>
+			</div>
+							  <!--  	<div class="child" id="<%//out.println(i); %>-C">
+									<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;margin-left: 19px;" aria-hidden="true"></span>
+    								<span class="text-left">
+    			
+    									<div   style="line-height:16px;margin-left:64px;font-size: 13px;">Monish Paul &nbsp<%//out.println(dt.subSequence(0, 7)); %></div>
+    									<div  style="line-height:35px;margin-left:64px;"><%//out.println(com); %>   </div>
+    								</span>
+    							</div>-->
+    							
+    							
+    				<% } %>				
 					<!-- from for reply -->
 					  <div class="card-footer  bg-white rep" style="border-radius:  0px 0px 8px 8px;"> 
     				   <form >
@@ -528,6 +664,18 @@
 	
 <script type="text/javascript">
 	$(document).ready(function() {
+
+
+
+	//$(".child-comments").hide();
+		//$("a#children").click(function(){
+			//var section=$(this).attr("name");
+			//alert(section);
+			//$("#C"+section).toggle();
+			//$(".child-comment").show();
+			//$(".child").empty();
+			//});
+	
 						
 						$("#down-arrow").click(function() {
 							$("#down-arrow").addClass("fa fa-chevron-up");
@@ -623,7 +771,7 @@
 								}
 							
 							});
-						
+
 					
 
 					});

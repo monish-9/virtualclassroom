@@ -28,7 +28,7 @@ public class ServletStudent extends HttpServlet {
 		String smailid=request.getParameter("mailid");
 		
 		String scontactno=request.getParameter("contactno");
-		
+		String sname=request.getParameter("sname");
 		String classcode=request.getParameter("classcode");
 		Student s=new Student();
 		
@@ -36,8 +36,8 @@ public class ServletStudent extends HttpServlet {
 		s.setMailid(smailid);
 		s.setContactno(scontactno);
 		
-		
-			
+		s.setStudentCode(classcode);
+		s.setSname(sname)	;
 		
 		
 		try {

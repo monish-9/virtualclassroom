@@ -99,7 +99,10 @@
   		width:50%;
   	}
   
-	
+	.card:hover{
+	cursor: pointer;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0.2, 0.2);"
+	}
   
   </style>
    
@@ -109,9 +112,9 @@
 
 
 <!-- html -->
-<div class="container-fluid bg-white">
+<div class="container-fluid  bg-white">
 
-<div class="row shadow-sm " style="border-bottom: 1px solid gray;" >
+<div class="row  card" style="border-radius:0px;border-left: none;border-right: none;" >
 	<div class="col-sm-12">
 		<h1 class="text-left">e-Ducation</h1>
 		</div>
@@ -185,19 +188,19 @@
 				          
 				          
 				           	<div class="form-group " style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-				           		<input type="text"  required class="form-control  shadow-sm" placeholder="" name="section" style="background:none;outline:none;border:none;height:4rem;">
+				           		<input type="text" id="section" required class="form-control  shadow-sm" placeholder="" name="section" style="background:none;outline:none;border:none;height:4rem;" >
 				           		<label>Section</label>
 				           		<div class="bar"></div>
 				           	</div>
 				           	
 							<div class="form-group" style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input type="text"   required class="form-control  shadow-sm" placeholder="" name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
+								<input type="text"  id="name" required class="form-control  shadow-sm" placeholder="" name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
 								<label>Name</label>
 								<div class="bar"></div>
 							</div>
 							
 							<div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input type="text"  required class="form-control  shadow-sm" placeholder="" name="subject" style="background:none;outline:none;border:none;height:4rem;">
+								<input type="text" id="subject"  required class="form-control  shadow-sm" placeholder="" name="subject" style="background:none;outline:none;border:none;height:4rem;">
 								<label>Subject</label>
 								<div class="bar"></div>
 							</div>
@@ -207,7 +210,7 @@
 							</div>-->
 							
 							<div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input id="mail"   required class="form-control  shadow-sm" placeholder="" type="text" name="mailid" style="background:none;outline:none;border:none;height:4rem;">
+								<input id="mail" id="mail"  required class="form-control  shadow-sm" placeholder="" type="text" name="mailid" style="background:none;outline:none;border:none;height:4rem;" >
 								<label>Mail Id</label>
 								<div class="bar"></div>
 							</div>
@@ -270,7 +273,7 @@
 
 					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-primary " style="height:95px; border-radius:10px 10px 0px 0px;">
-							<div class="fa fa-ellipsis-v float-right text-light" aria-hidden="true" style="opacity:95%;"></div>
+							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
 								<a class="text-light" href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>">
 							
 									<h3 class="card-title ">
@@ -289,21 +292,26 @@
 						</div>
 						<br>
 
-						<div class="card-body" style="height:115px;">
+						<div class="card-body" style="height: 115px;">
 
-						<%
-							out.println(rs.getString("subject"));
-						%>
-	<br>
-						<%
-							out.println(rs.getString("classcode"));
-						%>
-					
+							<%
+								out.println(rs.getString("subject"));
+							%>
+							<br>
+							<%
+								out.println(rs.getString("classcode"));
+							%>
 
 
-	</div>
-	<div class="card-footer bg-white" style="height:55px;border-top:1px solid #D5D5D5; border-radius:0px 0px 10px 10px;">
-</div>
+
+						</div>
+						<div class="card-footer bg-white"
+							style="height: 55px; border-top: 1px solid #D5D5D5; border-radius: 0px 0px 10px 10px;">
+							<%
+								out.println(rs.getString("name"));
+							%>
+
+						</div>
 
 
 
@@ -317,16 +325,6 @@
 				<%
 		}
 	%>
-		
-		</div>
-		
-		
-		
-	
-	
-	
-	
-	
 	<%
 	rs.close();
 	st.close();
@@ -340,7 +338,132 @@
 	
 	
 	
+	
+	
+	
+		<!-- student -->
+		
+		
+		
+		
+
+<!-- database connectivity -->
+	<%
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		String sql1 = "SELECT * from student_class INNER JOIN teacher ON student_class.scode=teacher.classcode " ;
+		try {
+			Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			Statement st1 = con1.createStatement();
+			ResultSet rs1= st1.executeQuery(sql1);
+			if (!rs1.isBeforeFirst()) {
+	%>
+	
+	
+	<div>
+		<%
+			out.print("");
+		%>
+	</div>
+	
+	
+	<%
+		}
+		
+	while (rs1.next()) {
+	%>
+
+
+				<div class="col-sm-6  col-lg-3 col-md-4 mt-3 p-1 p-md-2">
+
+					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
+						<div class="card-header bg-info " style="height:95px; border-radius:10px 10px 0px 0px;">
+							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
+								<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>">
+							
+									<h3 class="card-title ">
+										<%
+											out.println(rs1.getString("classname"));
+										%>
+										
+									</h3> 
+									<p class="card-text">
+										<%
+											out.println(rs1.getString("section"));
+										%>
+									</p>
+								</a> 
+						
+						</div>
+						<br>
+
+						<div class="card-body" style="height: 115px;">
+
+							<%
+								out.println(rs1.getString("subject"));
+							%>
+							<br>
+							<%
+								out.println(rs1.getString("classcode"));
+							%>
+
+
+
+						</div>
+						<div class="card-footer bg-white"
+							style="height: 55px; border-top: 1px solid #D5D5D5; border-radius: 0px 0px 10px 10px;">
+							<%
+								out.println(rs1.getString("name"));
+							%>
+
+						</div>
+
+
+
+
+					</div>
+				
+
+</div>
+
+
+				<%
+		}
+	%>
+	<%
+	rs1.close();
+	st1.close();
+	con1.close();
+
+	} catch (Exception e) {
+	e.printStackTrace();
+	}
+	%>
+		
+		
+		<!-- end -->
+		
 		</div>
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+		</div>
+		
+		
+		
+		
+		
+		
+	
 	
 
 	</div>
@@ -358,13 +481,13 @@
 		
 
 		//for input type text 
-		$("#cname").on("keyup input",function(){
+		$("#cname,#section,#name,#subject,#mail").on("keyup input",function(){
 			
 			
 			var empty2=false;
 		
 
-			$("#cname").each(function(){
+			$("#cname,#section,#name,#subject,#mail").each(function(){
 			if($(this).val()=='')
 				{
 			
@@ -403,9 +526,32 @@
   //call servlet...
   	function callServlet(methodType)
 		{
-	  		document.getElementById("create_class_Form").action="ServletTeacher";
-	  		document.getElementById("create_class_Form").method=methodType;
-	  		document.getElementById("create_class_Form").submit();
+  		
+  			var mail=document.getElementById("mail").value;
+  		var regex=/^([a-zA-Z0-9\.-]+)@([a-zA-Z-]+).([a-z]{2,8})(\.[a-z]{2,8})$/;
+  			
+  			if(regex.test(mail))
+  				{
+  					
+  					
+  					document.getElementById("create_class_Form").action="ServletTeacher";
+  			  		document.getElementById("create_class_Form").method=methodType;
+  			  		document.getElementById("create_class_Form").submit();
+  					return true;
+  					
+  				}
+  			else
+  				{
+  				document.getElementById("mail").setAttribute('data-container', 'body');
+  				document.getElementById("mail").setAttribute('data-placement', 'top');
+  				document.getElementById("mail").setAttribute('data-container', 'check mail id');
+  				document.getElementById("mail").setAttribute('data-toggle', 'popover');
+  				
+  					
+  				}
+  		
+		
+	  		
 	  }
 	
 

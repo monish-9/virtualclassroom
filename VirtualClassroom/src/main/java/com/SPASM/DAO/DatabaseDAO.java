@@ -1,5 +1,6 @@
 package com.SPASM.DAO;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -51,14 +52,15 @@ public class DatabaseDAO {
 		
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
-		String sql="INSERT INTO student (smailid, scontactno) VALUES (?,?)";
+		String sql="INSERT INTO student_class (smailid, scontactno,scode,sname) VALUES (?,?,?,?)";
 		try
 		{
 			Connection con=DriverManager.getConnection(url, user, password);
 			PreparedStatement st=con.prepareStatement(sql);
 			st.setString(1,s.getMailid());
 			st.setString(2,s.getContactno());
-			
+			st.setString(3, s.getStudentCode());
+			st.setString(4, s.getSname());
 			int i=st.executeUpdate();
 			System.out.println(i+"row inserted for student table");
 		}catch(Exception e)
@@ -88,11 +90,11 @@ public boolean search(String classcode) throws ClassNotFoundException {
 		return false;
 	}
 
-public void msgInsert(PostMsg h) throws ClassNotFoundException {
+public void msgInsert(PostMsg h,InputStream is) throws ClassNotFoundException {
 	
 	
 	Class.forName("com.mysql.cj.jdbc.Driver");
-	String sql="INSERT INTO upload (classcode,post,date,time) VALUES (?,?,?,?)";
+	String sql="INSERT INTO upload (classcode,post,filename,file,date,time) VALUES (?,?,?,?,?,?)";
 	try
 	{
 		Connection con=DriverManager.getConnection(url, user, password);
@@ -105,11 +107,18 @@ public void msgInsert(PostMsg h) throws ClassNotFoundException {
 		st.setString(1,h.getCode());
 		st.setString(2, h.getMsg());
 		
-		st.setDate(3, sqlDate);
-		st.setTime(4, sqlTime);
+		if (is != null) 
+	    {
+			st.setString(3,h.getFilename());
+             st.setBinaryStream(4, is, (int) h.getFile().getSize());
+             
+	    }
+		
+		st.setDate(5, sqlDate);
+		st.setTime(6, sqlTime);
 		
 		int i=st.executeUpdate();
-		System.out.println(i+"row inserted for upload table");
+		//System.out.println(i+"row inserted for upload table");
 	}catch(Exception e)
 	{
 		e.printStackTrace();

@@ -13,6 +13,9 @@
 		<input type="text" name="mailid"><br>
 		Contact No<br>
 		<input type="text" name="contactno"><br>
+		
+		Name<br>
+		<input type="text" name="sname"><br>
 		Class Code
 		<p>ask you teacher for the class code,then enter it here</p>
 	<input type="text" name="classcode" placeholder="class code"><br><br> 
