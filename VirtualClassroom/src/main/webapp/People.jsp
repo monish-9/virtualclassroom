@@ -1,3 +1,4 @@
+<%@page import="com.SPASM.DAO.*"%>
 <%@page import="java.sql.DriverManager"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -67,17 +68,17 @@
 			</nav>
 
 
-
+ <% Db_Connection  dbconn=new Db_Connection () ;%>
 	 <!--database connectivity for post msg-- "SELECT id,post,date FROM upload WHERE classcode=?"-->
 		<%
 			String sql ="select * from student_class inner join teacher on student_class.scode=teacher.classcode where classcode=?" ;
 			
-				Class.forName("com.mysql.cj.jdbc.Driver");
+				//Class.forName("com.mysql.cj.jdbc.Driver");
 				try {
-			Connection co = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			//Connection co = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 
-			
-			PreparedStatement s=co.prepareStatement(sql);
+			Connection con= dbconn.Connection();
+			PreparedStatement s=con.prepareStatement(sql);
 			
 			s.setString(1,code);
 			
@@ -96,22 +97,45 @@
 		<%
 			}
 		%>
-		<div class="container  border"  style="height: 220px;margin-top:86px;"> 
+		<div class="container   p-5 "  style="height: 220px;width:50vw;margin-top:86px;"> 
+		<div class="container p-2 " style="border-bottom:2px solid #5cb85c;">
+		<h3 class="text-success">Teacher</h3>
+		</div>
+		<div class="container p-2 text-muted">
+		<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+		<div class="container p-2 " style="margin-left:37px;">	
 		
-			<%
+		
+		<%
 			r.next();
-			out.println(r.getString("name"));%>
-			<br><%
-			out.println(r.getString("sname"));
+		out.println(r.getString("name"));%>
+		</div>
+			
+			</div>
+			
+			
+			<div class="container p-2 " style="border-bottom:2px solid #5cb85c;">
+		<h3 class="text-success">Student</h3>
+		</div>
+			<div class="container p-2 text-muted">
+			<div class="container border-bottom p-2" >
+							<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+		<div class="container  p-2" style="margin-left:37px;">	<%
+			out.println(r.getString("sname"));%></div></div><%
 						while (r.next()) {
 						
 							
 							
-							%><br>
-					<% 	out.println(r.getString("sname"));
+							%>
+							
+							<div class="container border-bottom p-2" >
+							<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+				<div class="container p-2" style="margin-left:37px;">	<% 	out.println(r.getString("sname"));%></div></div>
+					<% 
 						}
 					%>
-					<br>
+					
+					</div>
 					</div>
 			<%
 			

@@ -1,3 +1,4 @@
+<%@page import="com.SPASM.DAO.*"%>
 <%@page import="java.sql.DriverManager"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1" import="com.SPASM.model.Teacher"%>
@@ -112,10 +113,14 @@
 
 		response.sendRedirect("StartingPage.jsp");
 	}
+	
+	
+	
 	%>
 
 <!-- declaration.... -->
-<%!int i; String com;String dt;%>
+<%!int i; String com;String dt; 
+	%>
 
 	
 		<%
@@ -127,15 +132,15 @@
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateTeacher.jsp:" + code);
 		%>
-		<!-- creationj of fixed nav bar -->
+		<!-- creation of fixed nav bar -->
 		
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top justify-content-center " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
-				<a href="#" class="navbar-brand">
+				<div  class="navbar-brand">
 					
 				<%=classname %>
 					
-				</a>
+				</div>
 				
 				<nav class="navbar-nav p-5" >
 					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>">Stream</a>&nbsp&nbsp
@@ -148,14 +153,19 @@
 			
 			</nav>
 		<div class="container-fluid"> <!-- 1st div.... -->
-		<!--database connectivity-->
+		
+		<% Db_Connection  dbconn=new Db_Connection () ;%>
+		<!--database connectivity for select teacher class-->
+		
+		
 		<%
 			String quary = "select * from teacher where classcode=?";
-				Class.forName("com.mysql.cj.jdbc.Driver");
+				//Class.forName("com.mysql.cj.jdbc.Driver");
 				try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			//Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 
 			
+			Connection con= dbconn.Connection();
 			
 			System.out.println("connected create teacher..");//connection
 
@@ -284,10 +294,11 @@
 		<%
 			String sql ="SELECT name,post,file,filename,upload.date,upload.id from upload INNER JOIN teacher ON upload.classcode=teacher.classcode WHERE upload.classcode=?" ;
 			
-				Class.forName("com.mysql.cj.jdbc.Driver");
+				//Class.forName("com.mysql.cj.jdbc.Driver");
 				try {
-			Connection co = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
-
+			//Connection co = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+//Db_Connection  dbconn=new Db_Connection () ;
+			Connection co= dbconn.Connection();
 			
 			PreparedStatement s=co.prepareStatement(sql);
 			
@@ -330,7 +341,7 @@
 								</div>
 								
 								<label>choose file</label>
-								<input type="file" name="file_uploaded" >
+								<input type="file" name="file_uploaded"  multiple="multiple" >
 								
 							</form>
 							<div class="clearfix">
@@ -422,7 +433,7 @@
 									<i
 										class=" text-decoration-none fa fa-file-text fa-4x  border p-1"
 										style=""></i>
-									<div class="media-body text-truncate mt-3 ml-3">
+									<div class="media-body text-truncate mt-3 ml-3 thumbnail">
 										
 											<%
 												out.println(r.getString("filename"));
@@ -469,10 +480,11 @@
 						<!--database connectivity for comment-->
 		<%
 			String sql1 = "SELECT * FROM upload_comment WHERE msg_id=?";
-				Class.forName("com.mysql.cj.jdbc.Driver");
+				//Class.forName("com.mysql.cj.jdbc.Driver");
 			try {
-			Connection co1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
-
+			//Connection co1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+//Db_Connection  dbconn2=new Db_Connection () ;
+			Connection co1= dbconn.Connection();
 			
 			PreparedStatement s1=co1.prepareStatement(sql1);
 				//PreparedStatement p=co.prepareStatement(sql1);

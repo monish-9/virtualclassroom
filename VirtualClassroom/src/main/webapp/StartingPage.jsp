@@ -1,3 +1,4 @@
+<%@page import="com.SPASM.DAO.*"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.ResultSet"%>
@@ -239,16 +240,20 @@
 
 		<!-- end -->
 		
+		<%Db_Connection  dbconn=new Db_Connection () ; %>
+		
 <div class="container-fluid  mr-sm-5 mr-lg-3 mb-sm-2 mb-md-2 mb-lg-2 ">
 	
 		<div class="row">
 
-<!-- database connectivity -->
+<!-- database connectivity for select created class-->
 	<%
-		Class.forName("com.mysql.cj.jdbc.Driver");
+		//Class.forName("com.mysql.cj.jdbc.Driver");
 		String sql = "SELECT * FROM teacher";
 		try {
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			//Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			
+			Connection con= dbconn.Connection();
 			Statement st = con.createStatement();
 			ResultSet rs = st.executeQuery(sql);
 			if (!rs.isBeforeFirst()) {
@@ -349,10 +354,12 @@
 
 <!-- database connectivity -->
 	<%
-		Class.forName("com.mysql.cj.jdbc.Driver");
+		//Class.forName("com.mysql.cj.jdbc.Driver");
 		String sql1 = "SELECT * from student_class INNER JOIN teacher ON student_class.scode=teacher.classcode " ;
 		try {
-			Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			//Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
+			//Db_Connection  dbconn=new Db_Connection () ;
+			Connection con1= dbconn.Connection();
 			Statement st1 = con1.createStatement();
 			ResultSet rs1= st1.executeQuery(sql1);
 			if (!rs1.isBeforeFirst()) {
