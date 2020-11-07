@@ -8,6 +8,7 @@ public class Db_Connection
 	 private  String url="jdbc:mysql://localhost:3306/virtualclassroom";
 	 private  String username="root";
 	 private  String password="";
+	 
     public Connection Connection()
     {
         try 
