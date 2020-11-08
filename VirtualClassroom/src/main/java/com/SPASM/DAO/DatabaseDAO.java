@@ -22,8 +22,9 @@ public class DatabaseDAO {
 	public void insert(Teacher h) throws ClassNotFoundException {
 		
 		
-		
+		System.out.println("comming...");
 		String sql="INSERT INTO teacher (classname, section, name, subject, mailid,classcode) VALUES (?,?,?,?,?,?)";
+		//String sql="INSERT INTO public.teacher (classname, mailid, name, section, subject,classcode) VALUES (?,?,?,?,?,?)";
 		try
 		{
 			//Db_Connection  dbconn=new Db_Connection () ;
@@ -31,12 +32,14 @@ public class DatabaseDAO {
 			
 			PreparedStatement st=con.prepareStatement(sql);
 			st.setString(1,h.getClassname());
-			//st.setString(2,h.getClassdescription());
-			st.setString(2,h.getSection());
+			st.setString(2,h.getMailid());
 			st.setString(3,h.getName());
-			st.setString(4,h.getSubject());
+			//st.setString(2,h.getClassdescription());
+			st.setString(4,h.getSection());
+			
+			st.setString(5,h.getSubject());
 			//st.setString(6, h.getTeachername());
-			st.setString(5,h.getMailid());
+			
 			//st.setString(8,h.getPassword());
 			st.setString(6, h.getClasscode());
 			int i=st.executeUpdate();
@@ -96,7 +99,7 @@ public void msgInsert(PostMsg h,InputStream is) throws ClassNotFoundException {
 	
 	
 	
-	String sql="INSERT INTO upload (classcode,post,filename,file,date,time) VALUES (?,?,?,?,?,?)";
+	String sql="INSERT INTO upload (classcode,post,filename,date,time,document) VALUES (?,?,?,?,?,?)";
 	try
 	{
 		//Db_Connection  dbconn=new Db_Connection () ;
@@ -113,12 +116,12 @@ public void msgInsert(PostMsg h,InputStream is) throws ClassNotFoundException {
 		if (is != null) 
 	    {
 			st.setString(3,h.getFilename());
-             st.setBinaryStream(4, is, (int) h.getFile().getSize());
+             st.setBinaryStream(6, is, (int) h.getFile().getSize());
              
 	    }
 		
-		st.setDate(5, sqlDate);
-		st.setTime(6, sqlTime);
+		st.setDate(4, sqlDate);
+		st.setTime(5, sqlTime);
 		
 		int i=st.executeUpdate();
 		System.out.println(i+"row inserted for upload table");

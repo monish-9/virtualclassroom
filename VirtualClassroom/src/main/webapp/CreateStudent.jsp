@@ -296,7 +296,7 @@
 					
 						<!--database connectivity for post msg-- "SELECT id,post,date FROM upload WHERE classcode=?"-->
 		<%
-			String sql ="SELECT name,post,file,filename,upload.date,upload.id from upload INNER JOIN teacher ON upload.classcode=teacher.classcode WHERE upload.classcode=?" ;
+			String sql ="SELECT name,post,document,filename,upload.date,upload.id from upload INNER JOIN teacher ON upload.classcode=teacher.classcode WHERE upload.classcode=?" ;
 			
 				//Class.forName("com.mysql.cj.jdbc.Driver");
 				try {
@@ -390,7 +390,7 @@
     							
     						 		<%out.println(r.getString("post"));%>
     						 	</div>
-    						 	<% if(r.getBlob("file").length()!=0){
+    						 	<% if(r.getBlob("document").length()!=0){
     						 		
     						 				//Clob c=r.getBlob("file");              
     						 				//Reader rea=c.getCharacterStream();
