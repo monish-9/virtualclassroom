@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>view filw</title>
+<title>view file</title>
 </head>
 <body>
 
@@ -29,19 +29,19 @@
             	 Db_Connection  dbconn=new Db_Connection () ;
                 Connection conn= dbconn.Connection();
             
-                String sqlString = "SELECT file FROM upload WHERE id = '"+id+"'";
+                String sqlString = "SELECT document FROM upload WHERE id = '"+id+"'";
                 Statement myStatement = conn.createStatement();
                 
                 ResultSet rs=myStatement.executeQuery(sqlString);
                out.clear();
                 if (rs.next()) 
                 {
-                    file = rs.getBlob("file");
+                    file = rs.getBlob("document");
                     fileData=file.getBytes(1, (int)file.length());
                   
                 } 
                 response.reset();
-                response.setContentType("*/*; charset = utf-8");
+                response.setContentType("application/pdf; charset = utf-8");
                 request.setCharacterEncoding("UTF-8");
                 response.setHeader("Content-Disposition", "inline");
                 response.setContentLength(fileData.length);

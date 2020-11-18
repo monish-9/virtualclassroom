@@ -8,9 +8,10 @@
 </head>
 
 <body>
+<%String mailid=request.getParameter("mail"); %>
 <form action="ServletStudent" name="joinclass" method="post">
-		Mail Id<br>
-		<input type="text" name="mailid"><br>
+		
+		<input type="hidden" value=<%=mailid %> name="mailid"><br>
 		Contact No<br>
 		<input type="text" name="contactno"><br>
 		

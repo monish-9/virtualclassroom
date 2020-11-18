@@ -1,7 +1,6 @@
 package com.SPASM.controller;
 
 import java.io.IOException;
-//import java.io.PrintWriter;
 import java.io.InputStream;
 
 import javax.servlet.ServletException;
@@ -15,21 +14,22 @@ import javax.servlet.http.Part;
 import com.SPASM.DAO.DatabaseDAO;
 import com.SPASM.model.PostMsg;
 
+
 @MultipartConfig(maxFileSize = 60177215)
-public class PostServlet extends HttpServlet {
+public class StudentPostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	String author;
-    public PostServlet() {
+  
+    public StudentPostServlet() {
         super();
-        
+       
     }
+
+	
 
     InputStream inputStream = null;
    DatabaseDAO dao=new DatabaseDAO();
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		
+	System.out.println("welcome student post servlet");
 		//List<String> st=new ArrayList<String>();
 	//st.add(request.getParameter("msg"));
 	//PrintWriter out=response.getWriter();
@@ -68,8 +68,6 @@ public class PostServlet extends HttpServlet {
 		e.printStackTrace();
 	}
 
-	response.sendRedirect("CreateTeacher.jsp?code="+classcode+"&classname="+classname+"&author="+author);//URL re-writing
+	response.sendRedirect("CreateStudent.jsp?code="+classcode+"&classname="+classname+"&author="+author);//URL re-writing
 	}
-	
-
 }

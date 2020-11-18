@@ -94,7 +94,7 @@
   	{
   		width:50%;
   	}
-	#children:hover{
+.com:hover{
 	background:#f7f7f7;
 	}
 	</style>
@@ -106,21 +106,24 @@
 </title>
 </head>
 <body>
+
+<!-- declaration.... -->
+<%!int i; String com;String dt; 
+String author; %>
 	<!-- get session -->
 	<%
 		if (request.getParameter("code") == null) {
 			
-
-		response.sendRedirect("StartingPage.jsp");
+//if(session.getAttribute("classcode")==null){
+	
+		response.sendRedirect("StartingPage.jsp?mail="+session.getAttribute("mail"));
 	}
 	
-	
+	author=request.getParameter("author");
 	
 	%>
 
-<!-- declaration.... -->
-<%!int i; String com;String dt; 
-	%>
+
 
 	
 		<%
@@ -132,26 +135,34 @@
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateTeacher.jsp:" + code);
 		%>
+	<div class="conatainer-fluid">
 		<!-- creation of fixed nav bar -->
-		
-			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top justify-content-center " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
+		<div class="row">
+			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
-				<div  class="navbar-brand">
+			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
+				<div  class="navbar-brand ">
 					
 				<%=classname %>
 					
 				</div>
-				
-				<nav class="navbar-nav p-5" >
-					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>">People</a>&nbsp&nbsp
+			</div>
+			<div class="offset-lg-2 offset-0 col-lg-7 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
+				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
+					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="">Grades</a>
 				
 				</nav>
-			
+			</div>
 			
 			</nav>
+		</div>
+		
+		<!-- end of nav bar -->
+	</div>
+		
 		<div class="container-fluid"> <!-- 1st div.... -->
 		
 		<% Db_Connection  dbconn=new Db_Connection () ;%>
@@ -213,6 +224,9 @@
 						<%
 							out.println(rs.getString("classcode"));
 						%>
+						<svg width="2em" height="1em" viewBox="0 0 16 16" class="bi bi-fullscreen" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M1.5 1a.5.5 0 0 0-.5.5v4a.5.5 0 0 1-1 0v-4A1.5 1.5 0 0 1 1.5 0h4a.5.5 0 0 1 0 1h-4zM10 .5a.5.5 0 0 1 .5-.5h4A1.5 1.5 0 0 1 16 1.5v4a.5.5 0 0 1-1 0v-4a.5.5 0 0 0-.5-.5h-4a.5.5 0 0 1-.5-.5zM.5 10a.5.5 0 0 1 .5.5v4a.5.5 0 0 0 .5.5h4a.5.5 0 0 1 0 1h-4A1.5 1.5 0 0 1 0 14.5v-4a.5.5 0 0 1 .5-.5zm15 0a.5.5 0 0 1 .5.5v4a1.5 1.5 0 0 1-1.5 1.5h-4a.5.5 0 0 1 0-1h4a.5.5 0 0 0 .5-.5v-4a.5.5 0 0 1 .5-.5z"/>
+</svg>
 					</p>
 				</div>
 
@@ -344,6 +358,7 @@
 								<label>choose file</label>
 								<input type="file" name="file_uploaded"  multiple="multiple" >
 								
+								<input type="hidden" name="authorName" value="<%=author %>">
 							</form>
 							<div class="clearfix">
 							<button type="submit" class="btn btn-dark float-right ml-3" id="post_btn" name="post_btn" disabled onclick="servletCall('post')" style="box-shadow: none!important;">Post</button>
@@ -423,7 +438,7 @@
 						
 							<%
     						 	}
-    						 	else if(r.getString("filename").endsWith("docx"))
+    						 	else if(r.getString("filename").endsWith("docx")||r.getString("filename").endsWith("doc"))
     						 	
     						 	{%>
     						 	
@@ -516,8 +531,10 @@
 			//}else{
 			%>
 			
-					<div class=" card-body child-comments " > 
+					<div class=" card-body child-comments "  id="accordionExample"> 
 					<%
+					//r1.afterLast();
+		    		//System.out.println(r1.getString("comment"));
 					child_row_count=0;
 		while (r1.next()) {
 		%>
@@ -528,25 +545,28 @@
 					
 					<!-- reply-list -->
 								
-								<div class="child  collapse in" id="collapseExample<%//out.println(i); %>"  >
+								<div class="child  collapse in" id="collapse-<%=i%>"  aria-labelledby="heading-<%=i%>" data-parent="#accordionExample"> 
 								
     								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
     								<span class="text-left">
     			
-    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;">Monish Paul &nbsp<%out.println(r1.getDate("date_cmnt").toLocaleString().subSequence(0, 7)); %></div>
+    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=r1.getString("reply_author")%> &nbsp<%out.println(r1.getDate("date_cmnt").toLocaleString().subSequence(0, 7)); %></div>
     								<div  style="line-height:35px;margin-left:45px;"><%out.println(r1.getString("comment")); %>   </div>
     								</span>
     								
     							</div>
     							
-    		<%child_row_count++;}%>
+    		<%child_row_count++;}
+    		
+    		
+    		%>
     		
     								
     							
 					</div>
 					<div class=" border-0 " style="">
-						<a class=" btn btn-white  ml-3 mb-2 " data-toggle="collapse" href="#collapseExample<%//out.println(i);%>" aria-expanded="false" aria-controls="collapseExample<%//out.println(i);%>" style="box-shadow:none;" role="button"   name="<%out.println(i);%>" id="children" > <span class="card-text" style="margin:0;"><%out.println(child_row_count);%>class comment</span></a>
-			</div>
+						<a class=" btn btn-white  ml-3 mb-2 collapsed com " data-toggle="collapse" href="#collapse-<%=i %>" aria-expanded="false" aria-controls="collapse-<%=i %>" style="box-shadow:none;" role="button"   name="<%out.println(i);%>" id="heading-<%=i%>" > <span class="card-text" style="margin:0;"><%out.println(child_row_count);%>class comment</span></a>
+					</div>     
 							  <!--  	<div class="child" id="<%//out.println(i); %>-C">
 									<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;margin-left: 19px;" aria-hidden="true"></span>
     								<span class="text-left">
@@ -567,7 +587,7 @@
 						  <!--  <textarea class="form-control md-textarea"  aria-label="With textarea" style="height:3vw;border-radius:50px 0px 0px 50px;" id="cmnt" ></textarea>
 						  <div class="input-group-prepend  ">  input-group-text  css height:3vw;border-radius:0px 50px 50px 0px;-->
 						  <div class="text-center">
-    						<a class="btn btn-light btn-block text-primary" id="reply" name="<%out.println(i); %>" class="link-reply bg-white" role="button" style="">Reply</a>
+    						<a class="btn btn-light btn-block text-primary" value="<%=author %>" id="reply" name="<%out.println(i); %>" class="link-reply bg-white" role="button" style="">Reply</a>
   						</div>
 						
 						 </form>
@@ -613,10 +633,63 @@
 				
 					
 					
+					<!-- assignment -->
+		<%
+			String quary1 = "select * from assignment where classcode=?";
+			
+			try {
+			Connection con3= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st3 = con3.prepareStatement(quary1);
+			st3.setString(1, code);
+			ResultSet rs3 = st3.executeQuery();
+
+			if (!rs3.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		<%} %>
+			<%
+			
+				while (rs3.next()) {
+		%>		<%String id=rs3.getString("id") ;
+		
+		//if(rs.getString("topic")!=null)
+		//{
+		%>
+		<a href="#" ><div class="card-header border bg bg-white mt-3 " style="border-radius:8px;height:67px;">
+    				
+      					<h5 class="">
+        						
+       	 					
+       	 				<span class="text-dark" style="font-family: sans-serif;font-size:17px;font-weight: 550;"><%=rs3.getString("title") %> </span>
+       	 				<span class="text-muted float-right" style="font-family: sans-serif;font-size:13px;"><%=rs3.getString("due_date") %> 
+       	 					<%=rs3.getString("due_time") %></span>
+     	 				</h5>
+    				
+    				</div>
+			</a>		
+<%
+		//}
+}
+			rs3.close();
+			st3.close();
+			con3.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
 				
+					<!-- end -->
 					
-					
-					<div id ="previous_content" class=" border-dark card mt-4 p-3 "
+					<div id =" container previous_content" class=" border-muted card mt-4 p-3 "
 						style="border-radius:8px; height: 210px; margin-bottom:12px;">
 						<h3 class="card-title">Communicate with your class here</h3>
 
@@ -712,21 +785,18 @@
 							$("#text_something").show();
 						});
 
-						$("#post_btn").click(function() {
-
-							$("#previous_content").remove();
-							
-						});
+						
 						
 						$("a#reply").one("click",function() {
 							//$(".rep").remove();                                                                                          
 							var comCode = $(this).attr("name");
 							var parent = $(this).parent();
-							var data = "<br> <form action='ReplyServlet' method='post' id='comment'> <div class='input-group input-group-sm rounded-lg '> <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='resize:none;overflow:hidden;box-shadow:none;!important'  name='new-reply' id='new-reply' rows='2' ></textarea><input type='hidden' name='code' value='"+comCode+"'><div class='input-group-append' id='button-addon3'><input type='submit' class='btn btn-primary' disabled id='reply-btn' value='Send'  style='box-shadow:none;!important'></div></div></form>";
+							var author=$(this).attr("value");
+							var data = "<br> <form action='ReplyServlet' method='post' id='comment'> <div class='input-group input-group-sm rounded-lg '> <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='resize:none;overflow:hidden;box-shadow:none;!important'  name='new-reply' id='new-reply' rows='2' ></textarea><input type='hidden' name='code' value='"+comCode+"'><input type='hidden' name='author' value='"+author+"'><div class='input-group-append' id='button-addon3'><input type='submit' class='btn btn-primary' disabled id='reply-btn' value='Send'  style='box-shadow:none;!important'></div></div></form>";
 							parent.append(data);
 																	
 																	
-						    alert(comCode);
+						    alert(comCode+author);
 
 							//auto increasing of textarea for reply
 							$("#new-reply").on("keyup input",function(){
@@ -816,12 +886,12 @@
 				
 				}
 
-//function call(type)
-//{
-	//document.getElementById("post_cmnt").action="PostServlet";
-	///document.getElementById("post_cmnt").method=type;
-	//document.getElementById("post_cmnt").submit();
-	//}
+										//function call(type)
+										//{
+											//document.getElementById("post_cmnt").action="PostServlet";
+											///document.getElementById("post_cmnt").method=type;
+											//document.getElementById("post_cmnt").submit();
+											//}
 
 	
 </script>

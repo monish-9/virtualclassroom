@@ -47,7 +47,7 @@ public class ServletStudent extends HttpServlet {
 				System.out.println("true");
 				HttpSession session=request.getSession();
 				session.setAttribute("classcode",classcode);
-				response.sendRedirect("CreateStudent.jsp");
+				response.sendRedirect("StartingPage.jsp?mail="+smailid);
 				
 			}
 			else

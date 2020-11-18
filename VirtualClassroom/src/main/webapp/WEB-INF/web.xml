@@ -28,6 +28,36 @@
   	<description></description>
   	<servlet-class>com.SPASM.controller.ReplyServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>TeacherAssignmentServlet</servlet-name>
+  	<display-name>TeacherAssignmentServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.TeacherAssignmentServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Login</servlet-name>
+  	<display-name>Login</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.Login</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Registration</servlet-name>
+  	<display-name>Registration</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.Registration</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>StudentPostServlet</servlet-name>
+  	<display-name>StudentPostServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.StudentPostServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>StudentReplyServlet</servlet-name>
+  	<display-name>StudentReplyServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.StudentReplyServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletTeacher</servlet-name>
   	<url-pattern>/ServletTeacher</url-pattern>
@@ -43,5 +73,25 @@
   <servlet-mapping>
   	<servlet-name>ReplyServlet</servlet-name>
   	<url-pattern>/ReplyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>TeacherAssignmentServlet</servlet-name>
+  	<url-pattern>/TeacherAssignmentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Login</servlet-name>
+  	<url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Registration</servlet-name>
+  	<url-pattern>/Registration</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>StudentPostServlet</servlet-name>
+  	<url-pattern>/StudentPostServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>StudentReplyServlet</servlet-name>
+  	<url-pattern>/StudentReplyServlet</url-pattern>
   </servlet-mapping>
 </web-app>

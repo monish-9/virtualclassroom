@@ -67,9 +67,9 @@
 			</div>
 			<div class="offset-lg-2 offset-0 col-lg-7 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
 				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
+					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="">Grades</a>
 				
 				</nav>
@@ -94,7 +94,7 @@
 	 <!--database connectivity for post msg-- "SELECT id,post,date FROM upload WHERE classcode=?"-->
 		<%
 			
-			String sql1="SELECT * FROM teacher WHERE classcode=?";
+			String sql1="SELECT * FROM `teacher` WHERE classcode=?";
 			
 				try {
 			

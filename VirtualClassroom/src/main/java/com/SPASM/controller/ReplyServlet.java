@@ -26,6 +26,7 @@ public class ReplyServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String new_reply_text=request.getParameter("new-reply");
 		String new_reply_code=request.getParameter("code");
+		String new_reply_author=request.getParameter("author");
 		System.out.println(new_reply_code+new_reply_text);
 		HttpSession session=request.getSession();
 		String classcode=(String) session.getAttribute("classcode");
@@ -35,13 +36,14 @@ public class ReplyServlet extends HttpServlet {
 		ReplyModel rm=new ReplyModel();
 		rm.setNew_reply_code(new_reply_code);
 		rm.setNew_reply_text(new_reply_text);
+		rm.setNew_reply_author(new_reply_author);
 	try {
 			d.insertReply(rm);
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	response.sendRedirect("CreateTeacher.jsp?code="+classcode+"&classname="+classname); //URL re-writing
+	response.sendRedirect("CreateTeacher.jsp?code="+classcode+"&classname="+classname+"&author="+new_reply_author); //URL re-writing
 	}
 
 	

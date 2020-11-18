@@ -32,8 +32,9 @@ public class ServletTeacher extends HttpServlet {
 		
 		String subject=request.getParameter("subject");
 		//String teachername=request.getParameter("teachername");
-		String mailid=request.getParameter("mailid");
+					String mailid=request.getParameter("mailid");
 		//String password=request.getParameter("password");
+				
 		Teacher t=new Teacher();
 		t.setClassname(classname);
 		//t.setClassdescription(classdescription);
@@ -61,10 +62,11 @@ public class ServletTeacher extends HttpServlet {
 //		session.setAttribute("classname",classname);
 //		session.setAttribute("section", section);
 		session.setAttribute("classcode", t.getClasscode());
+		session.setAttribute("mail", mailid);
 //		session.setAttribute("subject",subject);
 //		session.setAttribute("room",room);
 		
-		response.sendRedirect("CreateTeacher.jsp");
+		response.sendRedirect("StartingPage.jsp?mail="+mailid);
 		
 		
 	}

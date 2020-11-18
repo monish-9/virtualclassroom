@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.sql.ResultSet"%>
-<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.*"%>
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.DriverManager"%>
 
@@ -111,6 +111,54 @@
 </head>
 <body>
 
+<%!String authorName; %>
+<%
+//response.setHeader("Cache-Control","no-cache,no-store,must-revalidate");
+if(session.getAttribute("mailid")==null)
+{
+	response.sendRedirect("ClassLogin.jsp");
+}
+
+String mailid=request.getParameter("mail");
+System.out.println("it has in"+mailid+ "session");
+Db_Connection  dbconn=new Db_Connection () ; 
+%>
+
+<!-- get name of this mailid -->
+
+<%
+			String quary4 = "select * from registration where mailid=?";
+			
+			try {
+			Connection con4= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st4 = con4.prepareStatement(quary4);
+			st4.setString(1, mailid);
+			ResultSet rs4 = st4.executeQuery();
+
+			if (!rs4.isBeforeFirst()) {
+				
+			}
+			if(rs4.next()){
+				System.out.println(rs4.getString("name"));
+				authorName=rs4.getString("name");
+			}
+			rs4.close();
+			st4.close();
+			con4.close();
+			}catch(Exception e){}
+	%>
+
+<!-- end -->
+
+
+<% 
+//String uss=session.getAttribute("username").toString();
+//System.out.println(uss);
+
+%>
 
 <!-- html -->
 <div class="container-fluid  bg-white">
@@ -194,11 +242,11 @@
 				           		<div class="bar"></div>
 				           	</div>
 				           	
-							<div class="form-group" style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input type="text"  id="name" required class="form-control  shadow-sm" placeholder="" name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
-								<label>Name</label>
+							<!-- <div class="form-group" style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">-->
+								<input type="hidden" value="<%=authorName%>" id="name" required class="form-control  shadow-sm" placeholder="" name="teacher_name" style="background:none;outline:none;border:none;height:4rem;">
+								<!--<label>Name</label>
 								<div class="bar"></div>
-							</div>
+							</div>-->
 							
 							<div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
 								<input type="text" id="subject"  required class="form-control  shadow-sm" placeholder="" name="subject" style="background:none;outline:none;border:none;height:4rem;">
@@ -210,10 +258,9 @@
 								<input type="text" class="form-control  shadow-sm" placeholder="Teacher's Name" name="teachername" style="background:none;outline:none;border:none;height:4rem;">
 							</div>-->
 							
-							<div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
-								<input id="mail" id="mail"  required class="form-control  shadow-sm" placeholder="" type="text" name="mailid" style="background:none;outline:none;border:none;height:4rem;" >
-								<label>Mail Id</label>
-								<div class="bar"></div>
+							<div class="form-group"  style="">
+								<input  id="mail" value="<%=session.getAttribute("mailid") %>"  required class="form-control  shadow-sm" placeholder="" type="hidden" name="mailid" style="" >
+								
 							</div>
 							
 					<!--  <div class="form-group"  style="border-bottom:1px solid gray; height:4rem; border-radius:8px 8px 0px 0px;background:#EDEDED;">
@@ -232,7 +279,7 @@
 				</div>
 																	<!-- end -->
 																	
-			<a href="JoinClass.jsp" class="btn btn-dark text-light shadow-sm">Join</a>
+			<a href="JoinClass.jsp?mail=<%=mailid%>" class="btn btn-dark text-light shadow-sm">Join</a>
 			
 		
 	</div>
@@ -240,7 +287,7 @@
 
 		<!-- end -->
 		
-		<%Db_Connection  dbconn=new Db_Connection () ; %>
+
 		
 <div class="container-fluid  mr-sm-5 mr-lg-3 mb-sm-2 mb-md-2 mb-lg-2 ">
 	
@@ -249,12 +296,13 @@
 <!-- database connectivity for select created class-->
 	<%
 		//Class.forName("com.mysql.cj.jdbc.Driver");
-		String sql = "SELECT * FROM teacher";
+		String sql = "SELECT * FROM teacher inner join registration on teacher.mailid=registration.mailid where teacher.mailid='"+mailid+"' ";
 		try {
 			//Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 			
 			Connection con= dbconn.Connection();
 			Statement st = con.createStatement();
+			
 			ResultSet rs = st.executeQuery(sql);
 			if (!rs.isBeforeFirst()) {
 	%>
@@ -279,7 +327,7 @@
 					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-primary " style="height:95px; border-radius:10px 10px 0px 0px;">
 							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
-								<a class="text-light" href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>">
+								<a class="text-light" href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>&author=<%=authorName%>">
 							
 									<h3 class="card-title ">
 										<%
@@ -355,7 +403,7 @@
 <!-- database connectivity -->
 	<%
 		//Class.forName("com.mysql.cj.jdbc.Driver");
-		String sql1 = "SELECT * from student_class INNER JOIN teacher ON student_class.scode=teacher.classcode " ;
+		String sql1 = "SELECT * from student_class INNER JOIN teacher ON student_class.scode=teacher.classcode where smailid='"+mailid+"'" ;
 		try {
 			//Connection con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 			//Db_Connection  dbconn=new Db_Connection () ;
@@ -385,7 +433,7 @@
 					<div class="card " style="height:100%;width:100%; border:1px solid #D5D5D5; border-radius:10px; "><!-- box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); -->
 						<div class="card-header bg-info " style="height:95px; border-radius:10px 10px 0px 0px;">
 							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
-								<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>">
+								<a class="text-light" href="CreateStudent.jsp?code=<%out.print(rs1.getString("classcode"));%>&classname=<%out.print(rs1.getString("classname"));%>&author=<%=authorName%>">
 							
 									<h3 class="card-title ">
 										<%
@@ -475,7 +523,7 @@
 
 	</div>
 		
-
+<%//session.removeAttribute("mail"); %>
 </body>
 
 
@@ -534,28 +582,28 @@
   	function callServlet(methodType)
 		{
   		
-  			var mail=document.getElementById("mail").value;
-  		var regex=/^([a-zA-Z0-9\.-]+)@([a-zA-Z-]+).([a-z]{2,8})(\.[a-z]{2,8})$/;
+  			///var mail=document.getElementById("mail").value;
+  		//var regex=/^([a-zA-Z0-9\.-]+)@([a-zA-Z-]+).([a-z]{2,8})(\.[a-z]{2,8})$/;
   			
-  			if(regex.test(mail))
-  				{
+  			//if(regex.test(mail))
+  				//{
   					
   					
   					document.getElementById("create_class_Form").action="ServletTeacher";
   			  		document.getElementById("create_class_Form").method=methodType;
   			  		document.getElementById("create_class_Form").submit();
-  					return true;
+  					//return true;
   					
-  				}
-  			else
-  				{
-  				document.getElementById("mail").setAttribute('data-container', 'body');
-  				document.getElementById("mail").setAttribute('data-placement', 'top');
-  				document.getElementById("mail").setAttribute('data-container', 'check mail id');
-  				document.getElementById("mail").setAttribute('data-toggle', 'popover');
+  			//	}
+  			//else
+  				//{
+  				//document.getElementById("mail").setAttribute('data-container', 'body');
+  				///document.getElementById("mail").setAttribute('data-placement', 'top');
+  				//document.getElementById("mail").setAttribute('data-container', 'check mail id');
+  				//document.getElementById("mail").setAttribute('data-toggle', 'popover');
   				
   					
-  				}
+  			//	}
   		
 		
 	  		
