@@ -6,8 +6,10 @@ import java.sql.*;
 public class Db_Connection 
 {
 	 private  String url="jdbc:mysql://localhost:3306/virtualclassroom";
+	 //private  String username="id15452607_monishid15452607_vc";
+	 //private  String password="Root-12345678";
 	 private  String username="root";
-	 private  String password="";
+ private  String password="";
 //	  String url="jdbc:postgresql://"+"localhost:5432"+"/virtual";
 //	  String username="postgres";
 //	  String password="10339";

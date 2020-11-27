@@ -209,13 +209,13 @@
 		 
 		 	<!-- end of left-column -->
 		 
-		<div class="col-lg-3 col-md-6   col-sm-6 col-12  mt-4 ">	
+		<div class="col-lg-3 col-md-6   col-sm-6 col-12  mt-4 p-3 ">	
 			
-			<div class="row pl-4 pr-4">
+			<div class="row pl-4 pr-4 mt-2">
 				<p>For</p>
 			</div>
 			
-			<div class="row pl-4 pr-4">
+			<div class="row pl-2 pr-4 mt-2">
 				<div class="col-6">
 					<span><button class="btn btn-light">Java DCST</button></span>
 				</div>
@@ -224,11 +224,11 @@
 				</div>
 			</div>
 			
-			<div class="row pl-4 pr-4 ">
+			<div class="row pl-4 pr-4 mt-3">
 				<label for="exampleInputPassword1">Points</label>
 			</div>
 			
-			<div class="row pl-4 pr-4 w-50">
+			<div class="row pl-4 pr-4 w-50 mt-1">
 				<!--  <form method="post"  id="assignment1" name="assign1" >-->
 				<div class="input-group">
 		    	
@@ -238,12 +238,12 @@
 	  			
 	  		</div>
 	  		
-	  		<div class="row pl-4 pr-4">
+	  		<div class="row pl-4 pr-4 mt-4">
 	  			<label for="exampleInputPassword1">Due</label>
 	  		</div>
 	  		
 	  		
-	  		<div class="row pl-4 pr-4">
+	  		<div class="row pl-4 pr-4 mt-1">
 		  		<div class="input-group"  >
 		  		
 		  			
@@ -252,7 +252,7 @@
 		  				<!-- add on append -->
 		  			
 		  			<div class="input-group-append">
-		  				<span class="input-group-addon dropdown-toggle"></span>
+		  				<!--  <span class="input-group-addon dropdown-toggle"></span>-->
 		  				
 		  				<div class="dropdown-menu " style="margin-top:-39px;box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1), 0 2px 20px 0 rgba(0, 0, 0, 0.19);">
 		  					
@@ -281,14 +281,14 @@
 		  	</div>
 	  		
 	  		<!-- end of input group of right side -->
-	  		<div class="row pl-4 pr-4">
+	  		<div class="row pl-4 pr-4 mt-4">
 	  			<label for="exampleInputPassword1">Topic</label>
 	  		</div>
 	  		
 	  		<div class="row pl-4 pr-4 rowl">
 		  		<div class="input-group ingl">
 			    	<input type="text" name="topic" class="form-control" id="exampleInputPassword" style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;border-radius:0px;">
-			    	<div class="input-group-addon">&times;</div>
+			    	<!--  <div class="input-group-addon">&times;</div>-->
 			   		<div class="bar"></div>
 		 		</div>
 		 	</div>

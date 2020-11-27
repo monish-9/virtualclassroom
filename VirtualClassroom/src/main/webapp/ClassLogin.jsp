@@ -99,7 +99,7 @@ body{
    
     color: #333;
     position: relative;
-    /*margin-bottom: 3px;*/
+    margin-bottom: 3px;
 }
 .b-form .form-control:focus{
     outline:none;
@@ -351,7 +351,8 @@ $(document).ready(function(){
 	     $('.b-subtext').html('or use your email for registration');
 	     $('.user_title').html('Welcome to e-Ducation');
 	     $('.user_subTitle').html('To keep Connected with us please </br> login with your personal info.');
-	     $('.b-title').css('margin-top','100px');
+	     $('.b-title').css('margin-top','0px');
+	     $('.form-control').css('margin-bottom','-20px');
 	     $('.swift_left').show();
 	     $('.username').show();
 	     $('.b-wrapper').removeClass('swift_element');

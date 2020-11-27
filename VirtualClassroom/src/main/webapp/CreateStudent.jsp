@@ -157,13 +157,12 @@ String authorStudent; %>
 					
 				</div>
 			</div>
-			<div class="offset-lg-2 offset-0 col-lg-7 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
+			<div class="offset-lg-3 offset-0 col-lg-9 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
 				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
 					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>"">Classwork</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="">Grades</a>
-				
+					
 				</nav>
 			</div>
 			
@@ -505,7 +504,7 @@ String authorStudent; %>
 						<!--database connectivity for comment reply-->
 		<%
 			String sql1 = "SELECT * FROM upload_comment WHERE msg_id=?";
-				//Class.forName("com.mysql.cj.jdbc.Driver");
+				//String sq="SELECT * FROM upload_comment WHERE id=(select max(id) from upload_comment where msg_id="142")
 			try {
 			//Connection co1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/virtualclassroom", "root", "");
 			//Db_Connection  dbconn2=new Db_Connection () ;
@@ -545,6 +544,11 @@ String authorStudent; %>
 					<%
 					//r1.afterLast();
 		    		//System.out.println(r1.getString("comment"));
+					child_row_count=0;
+		    		
+		    		
+		    		
+		    		
 		while (r1.next()) {
 		%>
 						<%//com=r1.getString("comment"); 
@@ -639,14 +643,83 @@ String authorStudent; %>
 		}
 		%>	
 
+			
+			
+			
+			
+			
+					<!-- assignment -->
+		<%
+			String quary1 = "select * from assignment where classcode=?";
+			
+			try {
+			Connection con3= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st3 = con3.prepareStatement(quary1);
+			st3.setString(1, code);
+			ResultSet rs3 = st3.executeQuery();
+
+			if (!rs3.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		<%} %>
+			<%
+			
+				while (rs3.next()) {
+		%>		<%String id=rs3.getString("id") ;
+		
+		//if(rs.getString("topic")!=null)
+		//{
+		%>
+		<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>" class="text-decoration-none" >
+					<div class="card-header border bg bg-white mt-3 p-3 " style="border-radius:8px;height:73px;">
+    				
+      					
+        					 <span class="float-left ml-1 border rounded-circle pl-2 pr-2 pt-1 pb-1 bg-primary text-light " style="position:relative;">  <svg width="27px" height="2em" viewBox="0 0 16 16" class="bi bi-menu-down " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M15 13V4a1 1 0 0 0-1-1h-3.586A2 2 0 0 1 9 2.414l-1-1-1 1A2 2 0 0 1 5.586 3H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM2 2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-3.586a1 1 0 0 1-.707-.293L8.354.354a.5.5 0 0 0-.708 0L6.293 1.707A1 1 0 0 1 5.586 2H2z"/>
+  <path fill-rule="evenodd" d="M15 11H1v-1h14v1zm0-4H1V6h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5z"/>
+</svg></span>
+       	 				<span class="float-left ">
+       	 				<div class="text-dark font-weight-bold ml-3 " style=" sans-serif;font-size:15px;position:absolute;">
+       	 					<%=rs3.getString("author")%> posted a new assignment: <%=rs3.getString("title") %> 
+       	 				</div>
+       	 				
+       	 				<div class="text-muted ml-3 mt-4" style="font-family: sans-serif;font-size:13px;position:absolute;"><%=rs3.getString("due_date") %> 
+       	 					<%=rs3.getString("due_time") %>
+       	 					</div>
+       	 				</span>
+     	 				
+    					
+    				</div>
+			</a>		
+<%
+		//}
+}
+			rs3.close();
+			st3.close();
+			con3.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
+				
+					<!-- end of assignment -->			
 				
 					
 					
 				
 					
 					
-					<div id ="previous_content" class=" border-dark card mt-4 p-3 "
-						style="border-radius:8px; height: 210px; margin-bottom:12px;">
+					<div id ="previous_content" class=" border-muted card mt-4 p-3  "
+						style="border-radius:8px; height: 50vh; margin-bottom:12px;">
 						<h3 class="card-title">Communicate with your class here</h3>
 
 						<h6 class="card-text">Create and schedule announcements</h6>

@@ -67,7 +67,7 @@
 <div class="container-fluid">
 
 <!-- creation of fixed nav bar -->
-		<div class="row">
+		<div class="row" style="margin-top:83px;">
 			<nav class="navbar  navbar-expand navbar-light bg-white border-bottom fixed-top  " style="font-family: sans-serif; font-size: 14px; font-weight: 600;height:66px;">
 			
 			<div class="col-lg-2  col-md-1  d-none d-sm-none d-md-block d-lg-block">
@@ -79,9 +79,9 @@
 			</div>
 			<div class="offset-lg-2 offset-0 col-lg-7 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
 				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="TeacherCreate.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="People.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
+					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
 					<a class="nav-link nav-item " href="">Grades</a>
 				
 				</nav>
@@ -96,37 +96,7 @@
 
 
 <div class="container p-2">
-<div class="row " style="margin-top:83px;">
-<div class="col-12 col-md-8 offset-md-2">
-	<div class="btn-group" >
-		<button class="btn btn-primary  " type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border-radius:50px;box-shadow: 0 3px 3px 0 rgba(0, 0, 255, 0.3), 0 2px 20px 0 rgba(0, 0, 255, 0.19);">
-	    	<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  			<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-			</svg>
-	   		<span class="mr-2 font-weight-bold"> Create</span>
-	  	</button>
-	  	<div class="dropdown-menu mt-2">
-		    <a class="dropdown-item" href="test.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">
-		    
-		    <svg width="1em" height="2em" viewBox="0 0 16 16" class="bi bi-menu-down mr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" d="M15 13V4a1 1 0 0 0-1-1h-3.586A2 2 0 0 1 9 2.414l-1-1-1 1A2 2 0 0 1 5.586 3H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM2 2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-3.586a1 1 0 0 1-.707-.293L8.354.354a.5.5 0 0 0-.708 0L6.293 1.707A1 1 0 0 1 5.586 2H2z"/>
-  <path fill-rule="evenodd" d="M15 11H1v-1h14v1zm0-4H1V6h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5z"/>
-</svg>
-		    
-		    
-		    
-		    
-		    
-		    Assignment
-		    </a>
-		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Question</a>
-		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Material</a>
-		    <div class="dropdown-divider"></div>
-		    <a class="dropdown-item" href="CreateTeacher.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Topic</a>
-	  	</div>
-	</div>
-</div>
-</div>
+
 
 <!-- end of 2nd row -->
 
@@ -212,50 +182,10 @@
 	        				</div>
 	        				
 	        				<div class="row ">
-	        					<div class="col-6 ">
+	        					<div class="col-8 ">
 	        						<div class="ml-2 text-dark"  style="font-family: sans-serif;font-size:13px;"> <%=rs.getString("instruction") %> </div>
 	        					</div>
 	        					
-	        					<!-- assigned,missing,turned in -->
-	        					<div class="col-6 ">
-	        					
-	        					<div class="row ">
-	        						<div class="col-4 border-left ">
-	        						
-	        							<div class="row">
-	        							<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;">0</p>
-	        							</div>
-	        							<div class="row">
-	        								<p class="ml-2 text-muted"  style="font-size:12px;">Turned in</p>
-	        							</div>
-	        							
-	        						</div>
-	        						
-	        						
-	        							<div class="col-4 border-left ">
-	        								
-	        								<div class="row">
-	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;">0</p>
-	        								</div>
-	        								<div class="row">
-	        									<p class="ml-2 text-muted" style="font-size:12px;">Assigned</p>
-	        								</div>
-	        								
-	        							</div>
-	        							
-	        							<div class="col-4 border-left ">
-	        								
-	        								<div class="row">
-	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;">0</p>
-	        								</div>
-	        								<div class="row">
-	        									<p class="ml-2 text-muted" style="font-size:12px;">Missing</p>
-	        								</div>
-	        								
-	        							</div>
-	        						
-	        						</div>
-	        					</div>
 	        					
 	        				</div>
 	        				<div class="row">
@@ -321,7 +251,7 @@
 	      				</div>
 	      			
 	      				<div class="card-footer bg-white  text-decoration-none ">
-	      					<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id%>" class="btn btn-white cf text-info" style="box-shadow: none;">view assignment</a>
+	      					<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id%>" class="btn btn-white cf text-info" style="box-shadow: none;">view assignment</a>
 	      				</div>
     				</div>
   				

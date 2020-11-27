@@ -162,10 +162,10 @@ String author; %>
 		
 		<!-- end of nav bar -->
 	</div>
-		
+		<% Db_Connection  dbconn=new Db_Connection () ;%>
 		<div class="container-fluid"> <!-- 1st div.... -->
 		
-		<% Db_Connection  dbconn=new Db_Connection () ;%>
+		
 		<!--database connectivity for select teacher class-->
 		
 		
@@ -200,7 +200,7 @@ String author; %>
 				while (rs.next()) {
 		%>
 		<div class="container  pl-md-5 pr-md-5 ">
-			<div class="container  bg-primary   shadow-sm first-div-radius"
+			<div class="container  bg-primary   shadow-sm first-div-radius p-4"
 				id="div1" style="height: 220px;margin-top:86px;">
 
 				<h5 class="text-white">
@@ -233,10 +233,10 @@ String author; %>
 
 
 
-				<div class="text-center text-white ">
+				<div class="text-center text-white ff ">
 
-					<div class=" fa fa-chevron-down" id="down-arrow"
-						style="cursor: pointer; margin-top: 70px;"></div>
+					<div class=" fa fa-angle-down fa-2x" id="down-arrow"
+						style="cursor: pointer; margin-top: 40px;"></div>
 
 				</div>
 
@@ -663,16 +663,24 @@ String author; %>
 		//if(rs.getString("topic")!=null)
 		//{
 		%>
-		<a href="#" ><div class="card-header border bg bg-white mt-3 " style="border-radius:8px;height:67px;">
+		<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" class="text-decoration-none" >
+					<div class="card-header border bg bg-white mt-3 p-3" style="border-radius:8px;height:73px;">
     				
-      					<h5 class="">
-        						
-       	 					
-       	 				<span class="text-dark" style="font-family: sans-serif;font-size:17px;font-weight: 550;"><%=rs3.getString("title") %> </span>
-       	 				<span class="text-muted float-right" style="font-family: sans-serif;font-size:13px;"><%=rs3.getString("due_date") %> 
-       	 					<%=rs3.getString("due_time") %></span>
-     	 				</h5>
-    				
+      					<div class="">
+        					 <span class="float-left ml-1 border rounded-circle pl-2 pr-2 pt-1 pb-1 bg-primary text-light " style="">  <svg width="27px" height="2em" viewBox="0 0 16 16" class="bi bi-menu-down " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" d="M15 13V4a1 1 0 0 0-1-1h-3.586A2 2 0 0 1 9 2.414l-1-1-1 1A2 2 0 0 1 5.586 3H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM2 2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-3.586a1 1 0 0 1-.707-.293L8.354.354a.5.5 0 0 0-.708 0L6.293 1.707A1 1 0 0 1 5.586 2H2z"/>
+  <path fill-rule="evenodd" d="M15 11H1v-1h14v1zm0-4H1V6h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5z"/>
+</svg></span>
+       	 				<span class="float-left">
+       	 				<div class="text-dark font-weight-bold ml-3" style="line-height:21px;font-family: sans-serif;font-size:15px;">
+       	 					<%=rs3.getString("author")%> posted a new assignment: <%=rs3.getString("title") %> 
+       	 				</div>
+       	 				
+       	 				<div class="text-muted ml-3" style="line-height:21px;font-family: sans-serif;font-size:13px;"><%=rs3.getString("due_date") %> 
+       	 					<%=rs3.getString("due_time") %></div>
+       	 					</span>
+     	 				</div>
+    					
     				</div>
 			</a>		
 <%
@@ -687,7 +695,7 @@ String author; %>
 					
 %>
 				
-					<!-- end -->
+					<!-- end of assignment -->
 					
 					<div id =" container previous_content" class=" border-muted card mt-4 p-3 "
 						style="border-radius:8px; height: 210px; margin-bottom:12px;">
@@ -761,10 +769,16 @@ String author; %>
 			//$(".child-comment").show();
 			//$(".child").empty();
 			//});
+					
+	
+	
 	
 						
 						$("#down-arrow").click(function() {
-							$("#down-arrow").addClass("fa fa-chevron-up");
+							//$("#down-arrow").removeClass("fa fa-angle-down");
+							//$("#down-arrow").addClass("fa fa-angle-up");
+							//$("#down-arrow").removeClass("fa fa-angle-up");
+							//$("#down-arrow").addClass("fa fa-angle-down");
 								$("#div2").toggle();
 								$("#div1").toggleClass("second-div-radius");
 								//$("#down-arrow").toggleClass(" container-fluid > container> text-center> fa fa-chevron-up")

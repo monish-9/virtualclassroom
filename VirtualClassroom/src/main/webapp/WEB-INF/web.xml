@@ -58,6 +58,24 @@
   	<description></description>
   	<servlet-class>com.SPASM.controller.StudentReplyServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>StudentAssignmentViewServlet</servlet-name>
+  	<display-name>StudentAssignmentViewServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.StudentAssignmentViewServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>StudentAssignmentReplyServlet</servlet-name>
+  	<display-name>StudentAssignmentReplyServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.StudentAssignmentReplyServlet</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>StudentAssignmentPrivateCommentServlet</servlet-name>
+  	<display-name>StudentAssignmentPrivateCommentServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.StudentAssignmentPrivateCommentServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletTeacher</servlet-name>
   	<url-pattern>/ServletTeacher</url-pattern>
@@ -93,5 +111,17 @@
   <servlet-mapping>
   	<servlet-name>StudentReplyServlet</servlet-name>
   	<url-pattern>/StudentReplyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>StudentAssignmentViewServlet</servlet-name>
+  	<url-pattern>/StudentAssignmentViewServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>StudentAssignmentReplyServlet</servlet-name>
+  	<url-pattern>/StudentAssignmentReplyServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>StudentAssignmentPrivateCommentServlet</servlet-name>
+  	<url-pattern>/StudentAssignmentPrivateCommentServlet</url-pattern>
   </servlet-mapping>
 </web-app>

@@ -30,22 +30,24 @@ public class PostServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		
-		//List<String> st=new ArrayList<String>();
-	//st.add(request.getParameter("msg"));
-	//PrintWriter out=response.getWriter();
 		 response.setContentType("text/html;charset=UTF-8");
 		
 		String st=request.getParameter("msg");
 		System.out.println(request.getParameter("authorName"));
 		String author=request.getParameter("authorName");
-		 Part filePart = request.getPart("file_uploaded");
-         
+		Part filePart = request.getPart("file_uploaded");
+		 
+		 //String filename = request.getParameter("file_uploaded");           
+		 //String r=  request.getRealPath(filename); 
+		 
+		 //System.out.println(filename+":"+r);
+		 
+        
          if (filePart != null) 
          {
              System.out.println(filePart.getSubmittedFileName());
              System.out.println(filePart.getSize());
              System.out.println(filePart.getContentType());
-
              inputStream = filePart.getInputStream();
          }
 		

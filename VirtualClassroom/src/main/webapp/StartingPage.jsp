@@ -118,10 +118,10 @@ if(session.getAttribute("mailid")==null)
 {
 	response.sendRedirect("ClassLogin.jsp");
 }
-
+Db_Connection  dbconn=new Db_Connection () ; 
 String mailid=request.getParameter("mail");
 System.out.println("it has in"+mailid+ "session");
-Db_Connection  dbconn=new Db_Connection () ; 
+
 %>
 
 <!-- get name of this mailid -->

@@ -11,6 +11,9 @@ import com.SPASM.model.PostMsg;
 import com.SPASM.model.RegistrationModel;
 import com.SPASM.model.ReplyModel;
 import com.SPASM.model.Student;
+import com.SPASM.model.StudentAssignmentPrivateCommentModel;
+import com.SPASM.model.StudentAssignmentReplyModel;
+import com.SPASM.model.StudentAssignmentViewServletModel;
 import com.SPASM.model.Teacher;
 import com.SPASM.model.TeacherAssignment;
 
@@ -262,6 +265,112 @@ public void assignmentTeacherInsert(TeacherAssignment ta,InputStream is) throws 
 		st.setString(13,ta.getAuthorName());
 		int i=st.executeUpdate();
 		System.out.println(i+"row inserted for upload table");
+	}catch(Exception e)
+	{
+		e.printStackTrace();
+	}
+}
+
+
+
+public void insertStudentAssignment(StudentAssignmentViewServletModel c,InputStream is) throws ClassNotFoundException {
+	//	System.out.println(h.getNew_com_code()+h.getNew_com_text());
+		//driver();
+	
+		String sql="INSERT INTO student_assignment_upload (assign_id ,	author,	classcode , student_file, student_file_name, date,	time, title) VALUES (?,?,?,?,?,?,?,?)";
+		try
+		{
+			//Db_Connection  dbconn=new Db_Connection () ;
+			Connection con= dbconn.Connection();
+			
+			
+			java.util.Date utilDate = new java.util.Date();
+	        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	        java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+	        
+			PreparedStatement st=con.prepareStatement(sql);
+			st.setString(1,c.getAssignId());
+			st.setString(2,c.getAuthorName());
+			st.setString(3, c.getCode());
+			if (is != null) 
+		    {
+				
+	             st.setBinaryStream(4, is, c.getFile().getSize());
+	             st.setString(5,c.getFilename());
+	             
+		    }
+			
+			st.setDate(6, sqlDate);
+			st.setTime(7, sqlTime);
+			st.setString(8,c.getTitle());
+			
+			int i=st.executeUpdate();
+			System.out.println(i+"row inserted student_assignment_upload table");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+public void insertStudentAssignmentReply(StudentAssignmentReplyModel c) throws ClassNotFoundException {
+	
+	
+		String sql="INSERT INTO student_assignment_reply ( assign_id, title, author, asign_comment,assign_classcode,date,time) VALUES (?,?,?,?,?,?,?);";
+		try
+		{
+			Connection con= dbconn.Connection();
+			
+			
+			java.util.Date utilDate = new java.util.Date();
+	        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+	        java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+	        
+			PreparedStatement st=con.prepareStatement(sql);
+			st.setString(1,c.getId());
+			st.setString(2,c.getComment_title());
+			st.setString(3, c.getAuthor());
+			st.setString(4,c.getAssign_comment());
+			st.setString(5,c.getComment_classcode());
+			st.setDate(6, sqlDate);
+			st.setTime(7, sqlTime);
+			
+			
+			int i=st.executeUpdate();
+			System.out.println(i+"row inserted student_assignment_reply table");
+		}catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+
+
+
+public void insertStudentAssignmentPrivateComment(StudentAssignmentPrivateCommentModel c) throws ClassNotFoundException {
+	
+	
+	String sql="INSERT INTO student_assignment_private_comment (private_id, title, author, private_comment,private_classcode,date,time) VALUES (?,?,?,?,?,?,?);";
+	try
+	{
+		Connection con= dbconn.Connection();
+		
+		
+		java.util.Date utilDate = new java.util.Date();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        java.sql.Time sqlTime = new java.sql.Time(utilDate.getTime());
+        
+		PreparedStatement st=con.prepareStatement(sql);
+		st.setString(1,c.getId());
+		st.setString(2,c.getComment_title());
+		st.setString(3, c.getAuthor());
+		st.setString(4,c.getPrivate_comment());
+		st.setString(5,c.getComment_classcode());
+		st.setDate(6, sqlDate);
+		st.setTime(7, sqlTime);
+		
+		
+		int i=st.executeUpdate();
+		System.out.println(i+"row inserted student_assignment_private_comment table");
 	}catch(Exception e)
 	{
 		e.printStackTrace();
