@@ -15,7 +15,11 @@ import javax.servlet.http.Part;
 import com.SPASM.DAO.DatabaseDAO;
 import com.SPASM.model.PostMsg;
 
-@MultipartConfig(maxFileSize = 60177215)
+@MultipartConfig(
+		fileSizeThreshold = 1024*1024*10,//10MB
+		maxFileSize = 1024*1024*50,//50MB
+		maxRequestSize = 1024*1024*100//100MB
+		)
 public class PostServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

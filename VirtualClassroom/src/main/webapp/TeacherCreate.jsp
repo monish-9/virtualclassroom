@@ -51,11 +51,11 @@
 %>
 
 <!-- declaration.... -->
-<%!//int i; String com;String dt;%>
+<%!int totalStudent;//int i; String com;String dt;%>
 
 	
 		<%
-			
+		 Db_Connection  dbconn=new Db_Connection ();
 		String code = request.getParameter("code");
 		String classname=request.getParameter("classname");
 		
@@ -63,6 +63,79 @@
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in People.jsp:" + code);
 		%>
+
+
+
+<!--count total student-->
+		<%
+			String sql ="SELECT count(sname) as totalStudent FROM `student_class` WHERE scode=?" ;
+			
+			
+				try {
+			
+
+			Connection con= dbconn.Connection();
+			
+			PreparedStatement s=con.prepareStatement(sql);
+			
+			s.setString(1,code);
+			
+			ResultSet r=s.executeQuery();
+		
+
+			if (!r.isBeforeFirst()) {
+		%>
+		<div>
+			<%
+				out.print("");
+			%>
+		</div>
+
+
+		<%
+			}
+		%>
+
+		
+
+		<%
+			while (r.next()) {
+						
+		%>
+							
+			
+						<% totalStudent=Integer.parseInt(r.getString("totalStudent"));%>
+				
+					<% 
+						}
+					%>
+		<%
+			
+		} catch (Exception e) {
+		e.printStackTrace();
+		}
+		%>	
+					
+		
+		
+		<!-- end -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <div class="container-fluid">
 
@@ -131,7 +204,7 @@
 <!-- end of 2nd row -->
 
   <!-- java code -->
-  	<% Db_Connection  dbconn=new Db_Connection ();%>
+  	
 		
 		
 	<!--database connectivity for select teacher class-->
@@ -212,14 +285,56 @@
 	        				</div>
 	        				
 	        				<div class="row ">
-	        					<div class="col-6 ">
+	        					<div class="col-8 ">
 	        						<div class="ml-2 text-dark"  style="font-family: sans-serif;font-size:13px;"> <%=rs.getString("instruction") %> </div>
 	        					</div>
 	        					
 	        					<!-- assigned,missing,turned in -->
-	        					<div class="col-6 ">
+	        					<div class="col-4 ">
 	        					
-	        					<div class="row ">
+	        					
+	        	<!-- count assigned with database -->
+	        					
+	        	 <%
+			String quary2 = "SELECT count(assign_id) as assigned FROM student_assignment_upload  WHERE  classcode=? and assign_id=? ";
+			
+			try {
+			Connection con4= dbconn.Connection();
+			
+			//System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st4 = con4.prepareStatement(quary2);
+			st4.setString(1, code);
+			st4.setString(2, id);
+			ResultSet rs4 = st4.executeQuery();
+
+			if (!rs4.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		
+		
+		
+		<%} %>
+		<div class="row ">
+		
+		<% 
+		
+		while (rs4.next()) {
+		// id=rs3.getString("id") ;
+		//title=rs4.getString("title") ;
+		int assigned=Integer.parseInt(rs4.getString("assigned"));
+		
+		%>				
+	        									
+	        					
+	        					
+	        					
+	        					
 	        						<div class="col-4 border-left ">
 	        						
 	        							<div class="row">
@@ -235,7 +350,7 @@
 	        							<div class="col-4 border-left ">
 	        								
 	        								<div class="row">
-	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;">0</p>
+	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;"><%=assigned %></p>
 	        								</div>
 	        								<div class="row">
 	        									<p class="ml-2 text-muted" style="font-size:12px;">Assigned</p>
@@ -246,16 +361,36 @@
 	        							<div class="col-4 border-left ">
 	        								
 	        								<div class="row">
-	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;">0</p>
+	        									<p class="ml-2 text-dark"  style="font-size:37px;font-weight: 550;"><%=(totalStudent-assigned) %></p>
 	        								</div>
 	        								<div class="row">
 	        									<p class="ml-2 text-muted" style="font-size:12px;">Missing</p>
 	        								</div>
 	        								
 	        							</div>
+	        							
+	        							
+	        							
+	        							
+	        							
 	        						
-	        						</div>
-	        					</div>
+	        						<%} %>		
+	        							
+	        							</div>
+
+		
+		<%
+			rs4.close();
+			st4.close();
+			con4.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>	
+	
+	<!-- end -->        					
+	</div>
 	        					
 	        				</div>
 	        				<div class="row">

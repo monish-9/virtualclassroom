@@ -38,6 +38,12 @@
                 {
                     file = rs.getBlob("document");
                     fileData=file.getBytes(1, (int)file.length());
+                    
+                   // RandomAccessFile raf = new RandomAccessFile(file, "r");
+                    //FileChannel channel = raf.getChannel();
+                    //ByteBuffer buf = channel.map(FileChannel.MapMode.READ_ONLY, 0, channel.size());
+                   // PDFFile pdf = new PDFFile(buf);
+                  //  PDFPage page = pdf.getPage(0);
                   
                 } 
                 response.reset();

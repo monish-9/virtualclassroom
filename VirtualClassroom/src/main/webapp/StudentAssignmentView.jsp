@@ -42,8 +42,8 @@
 <!-- declaration.... -->
 <%!String id;String author;String title;//int i; String com;String dt;%>
 
-	<% Db_Connection  dbconn=new Db_Connection () ;
-		
+	<% 
+	Db_Connection  dbconn=new Db_Connection () ;
 		author=request.getParameter("author");
 		String code = request.getParameter("code");
 		String classname=request.getParameter("classname");
@@ -306,7 +306,7 @@
        	 				<div class="row">
        	 				
        	 				<div class="col-lg-9 col-md-12 col-sm-12 col-12 mt-2 ">
-       	 						<div class="child  collapses in" id="collapse-<%=id%>"  aria-labelledby="heading-<%=id%>" data-parent="#accordionExample"> 
+       	 						<div class="child collapse" id="collapseExample<%=id %>" > 
 								
     								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
     								<span class="text-left">
@@ -325,7 +325,7 @@
 }
 %>
 					<div class=" border-0 " style="">
-						<a class=" btn btn-white  ml-3 mb-2 collapsed com " data-toggle="collapse" href="#collapse-<%=id%>" aria-expanded="false" aria-controls="collapse-<%=id %>" style="box-shadow:none;" role="button"   name="<%out.println(id);%>" id="heading-<%=id%>" > <span class="card-text" style="margin:0;"><%out.println(count);%>class comment</span></a>
+						<a class=" btn btn-white  ml-3 mb-2 collapsed com "  data-toggle="collapse" href="#collapseExample<%=id%>" aria-expanded="false" aria-controls="collapseExample<%=id %>" style="box-shadow:none;" role="button"   name="<%out.println(id);%>"> <span class="card-text" style="margin:0;"><%out.println(count);%>class comment</span></a>
 					</div>  
 		<!--  <span style="font-size: 16px; font-weight: 550;">Class comments</span>-->
 		<%
@@ -548,10 +548,10 @@
 		<div class="custom-file mt-2">
 		  <input type="file" class="custom-file-input" id="customFile" name="file_uploaded" style="box-shadow:none;">
 		  <label class="custom-file-label pb-3" for="customFile" style="font-size: 15px; ">
-		  <svg width="2em" height="20px" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-	  	<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
-		 </svg>
-		 <span style=""> Add or create</span>
+			  <svg width="2em" height="20px" viewBox="0 0 16 16" class="bi bi-plus" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+		  	<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
+			 </svg>
+			 Add or create
 		  </label>
 		</div>
 	
@@ -562,7 +562,7 @@
 	
 		<input type="hidden" name="title" value="<%=title%>">
 	
-	 	<button type="button" class="btn btn-primary btn-md btn-block mt-3" onclick="servletCall('post')" style="box-shadow:none;">Mark as done</button>
+	 	<button type="button" id="btnUpload" class="btn btn-primary btn-md btn-block mt-3" onclick="servletCall('post')" style="box-shadow:none;">Mark as done</button>
 	</div>
 	
 	</div>
@@ -576,7 +576,7 @@
 <form  action="StudentAssignmentPrivateCommentServlet" method="post" id="privateComment" >
 	<div class="row">
 	<div class="col-12 mt-2 mt-md-4 mb-3">
-	<div class="card" style="border-radius: 8px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);">
+	<div class="card" style="border-radius: 8px;box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2); overflow:hidden;">
 	
 	<%!int count1; %>
 	<!-- fetch private comment and place it into card body -->
@@ -615,51 +615,43 @@
 		title=rs6.getString("title") ;
 	
 		%>
-	
-					<div class="card-body ">
-       	 						<div class="child  collapsee in" id="collapse-<%=id%>"  aria-labelledby="heading-<%=id%>" data-parent="#accordionExample"> 
+	<div class="card-header bg-white pl-3 pt-2 border-0" style="overflow:hidden;">	
+				
+       	 						<div class="child  collapsee mt-1" id="collapse-<%=id%>" > 
 								
     								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
     								<span class="text-left">
     			
     								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=rs6.getString("author")%> &nbsp<%out.println(rs6.getDate("date").toLocaleString().subSequence(0, 7)); %></div>
-    								<div  style="line-height:35px;margin-left:45px;"><%out.println(rs6.getString("private_comment")); %>   </div>
+    								<div  style="line-height:33px;margin-left:45px;"><%out.println(rs6.getString("private_comment")); %>   </div>
     								</span>
     								
     							</div>
     							<%count1++; %>
     							
-       	 				</div>
+       	 				
 	
-	
-	
+	</div>	
 <%
 }
 %>
-<%if(count1>0){ %>
-					<div class=" border-0 " style="">
-						<a class=" btn btn-white  ml-3 mb-2 collapsed com " data-toggle="collapse" href="#collapse-<%=id%>" aria-expanded="false" aria-controls="collapse-<%=id %>" style="box-shadow:none;" role="button"   name="<%out.println(id);%>" id="heading-<%=id%>" > <span class="card-text" style="margin:0;"><%out.println(count1);%>private comments</span></a>
-					</div> 
-					<%} %>
-		<%
-			rs6.close();
-			st6.close();
-			con6.close();
-			} catch (Exception e) {
-			e.printStackTrace();
-			}
+
+	
+
 					
-%>
+					
+				
+				
+				
+				
+				<!-- end -->
+	<div class="card-footer p-3 bg-white" style="height: 100%;border-radius: 0px 0px 8px; overflow:hidden;" >
 	
-	
-	
-	
-	
-	
-	
-	<!-- end -->
-	<div class="card-footer p-3 bg-white" style="height: 100%;border-radius: 8px; " >
+	<%if(count1>0){ %>
+		<a class=" btn btn-white  ml-3 mb-2 collapsed com " data-toggle="collapse" href="#collapse-<%=id%>" aria-expanded="false" aria-controls="collapse-<%=id %>" style="box-shadow:none;" role="button"   name="<%out.println(id);%>"  > <span class="card-text" style="margin:0;"><%out.println(count1);%>private comments</span></a>
+		<%} else{%>
 		<span style="font-size: 16px; font-weight: 550;">Private comments</span>
+		<% }%>
 		
 		<div class="row mt-3">
 			<div class="col-1">
@@ -683,6 +675,35 @@
 	    </div>
 	
 	</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		<%
+			rs6.close();
+			st6.close();
+			con6.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	</div><!-- card end -->
 	
@@ -731,6 +752,12 @@
 	<script type="text/javascript">
 
 $(document).ready(function(){
+	$('#btnUpload').attr('disabled',true);
+	$('#customFile').change(function(){
+		$('#btnUpload').attr('disabled',false);
+		});
+
+	
 	$("textarea").on("keyup input",function(){
 		
 		

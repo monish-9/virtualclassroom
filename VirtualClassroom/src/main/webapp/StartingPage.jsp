@@ -329,7 +329,7 @@ System.out.println("it has in"+mailid+ "session");
 							<a class=" float-right text-light" aria-hidden="true" style="opacity:95%;"><div class="fa fa-ellipsis-v"></div></a>
 								<a class="text-light" href="CreateTeacher.jsp?code=<%out.print(rs.getString("classcode"));%>&classname=<%out.print(rs.getString("classname"));%>&author=<%=authorName%>">
 							
-									<h3 class="card-title ">
+									<h3 class="card-title text-truncate">
 										<%
 											out.println(rs.getString("classname"));
 										%>

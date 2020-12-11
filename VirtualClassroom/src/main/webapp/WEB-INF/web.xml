@@ -76,6 +76,12 @@
   	<description></description>
   	<servlet-class>com.SPASM.controller.StudentAssignmentPrivateCommentServlet</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>AssignmentMarksServlet</servlet-name>
+  	<display-name>AssignmentMarksServlet</display-name>
+  	<description></description>
+  	<servlet-class>com.SPASM.controller.AssignmentMarksServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>ServletTeacher</servlet-name>
   	<url-pattern>/ServletTeacher</url-pattern>
@@ -123,5 +129,9 @@
   <servlet-mapping>
   	<servlet-name>StudentAssignmentPrivateCommentServlet</servlet-name>
   	<url-pattern>/StudentAssignmentPrivateCommentServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AssignmentMarksServlet</servlet-name>
+  	<url-pattern>/AssignmentMarksServlet</url-pattern>
   </servlet-mapping>
 </web-app>

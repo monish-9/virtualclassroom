@@ -191,13 +191,13 @@
 						</div>
 								
 						<div class="form-group" >
-							<textarea class="form-control text2 "
+							<textarea class="form-control text2 " id="Msg"
 									  name="instruction" required="required" rows="4" 
 									style=" resize:none;overflow:hidden;background:#EDEDED;outline:none;border:none;border-bottom:1px solid black;box-shadow: none!important;"></textarea>
 							<label>Instruction(Optional)</label>
 							<div class="bar"></div>
 						</div>
-						
+						<textarea id='userFied' style="display:none;"></textarea>
 						<input type="file" name="file_assign" multiple="multiple">
 					
 					
@@ -369,6 +369,15 @@ $(document).ready(function(){
 //call TeacherAssignmentServlet using js
 	function callServlet(methodType)
 	{
+
+		//text=document.getElementById('Msg').value;
+		//text=text.replace(/ /g, "[sp] [sp]");
+		//text=text.replace(/\n/g, "[nl]");
+		//document.getElementById('userFied').value=text;
+		//return false; 
+		//
+		//text1.replace("[sp]","\n");
+		////text1%>
 	
 		document.getElementById("assignment").action="TeacherAssignmentServlet";
 		document.getElementById("assignment").method=methodType;

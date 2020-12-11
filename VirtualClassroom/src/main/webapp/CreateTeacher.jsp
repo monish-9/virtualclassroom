@@ -109,7 +109,7 @@
 
 <!-- declaration.... -->
 <%!int i; String com;String dt; 
-String author; %>
+String author;int ii;String title; %>
 	<!-- get session -->
 	<%
 		if (request.getParameter("code") == null) {
@@ -659,30 +659,179 @@ String author; %>
 			
 				while (rs3.next()) {
 		%>		<%String id=rs3.getString("id") ;
-		
+		title=rs3.getString("title");
 		//if(rs.getString("topic")!=null)
 		//{
 		%>
-		<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>" class="text-decoration-none" >
-					<div class="card-header border bg bg-white mt-3 p-3" style="border-radius:8px;height:73px;">
+		
+				<div class="card mt-3 " style="border-radius:8px;overflow:hidden;">
+				<a href="TacherAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>&title=<%=title %>" class="text-decoration-none" >
+					<div class="card-header  bg bg-white p-3 " style="height:73px;">
     				
-      					<div class="">
-        					 <span class="float-left ml-1 border rounded-circle pl-2 pr-2 pt-1 pb-1 bg-primary text-light " style="">  <svg width="27px" height="2em" viewBox="0 0 16 16" class="bi bi-menu-down " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+      					
+        					 <span class="float-left ml-1 border rounded-circle pl-2 pr-2 pt-1 pb-1 bg-primary text-light " style="position:relative;">  <svg width="27px" height="2em" viewBox="0 0 16 16" class="bi bi-menu-down " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
   <path fill-rule="evenodd" d="M15 13V4a1 1 0 0 0-1-1h-3.586A2 2 0 0 1 9 2.414l-1-1-1 1A2 2 0 0 1 5.586 3H2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM2 2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2h-3.586a1 1 0 0 1-.707-.293L8.354.354a.5.5 0 0 0-.708 0L6.293 1.707A1 1 0 0 1 5.586 2H2z"/>
   <path fill-rule="evenodd" d="M15 11H1v-1h14v1zm0-4H1V6h14v1zM2 12.5a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1h-8a.5.5 0 0 1-.5-.5z"/>
 </svg></span>
-       	 				<span class="float-left">
-       	 				<div class="text-dark font-weight-bold ml-3" style="line-height:21px;font-family: sans-serif;font-size:15px;">
+       	 				<span class="float-left ">
+       	 				<div class="text-dark font-weight-bold ml-3 " style=" sans-serif;font-size:15px;position:absolute;">
        	 					<%=rs3.getString("author")%> posted a new assignment: <%=rs3.getString("title") %> 
        	 				</div>
        	 				
-       	 				<div class="text-muted ml-3" style="line-height:21px;font-family: sans-serif;font-size:13px;"><%=rs3.getString("due_date") %> 
-       	 					<%=rs3.getString("due_time") %></div>
-       	 					</span>
-     	 				</div>
+       	 				<div class="text-muted ml-3 mt-4" style="font-family: sans-serif;font-size:13px;position:absolute;"><%=rs3.getString("due_date") %> 
+       	 					<%=rs3.getString("due_time") %>
+       	 					</div>
+       	 				</span>
+     	 				
     					
     				</div>
-			</a>		
+    				
+    			</a>	
+			
+			
+			<!-- comment show -->
+			
+			
+			<!-- comment assignment student -->
+    				
+    					<%
+			String quary6 = "SELECT * FROM student_assignment_reply WHERE assign_classcode=? and assign_id=?";
+			
+			try {
+			Connection con6= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st6 = con6.prepareStatement(quary6);
+			st6.setString(1, code);
+			st6.setString(2, id);
+			ResultSet rs6 = st6.executeQuery();
+
+			if (!rs6.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		<%} %>
+		<%ii=0; %>
+			<%
+			
+				while (rs6.next()) {
+					//String id=rs3.getString("id") ;
+					%>
+					
+					
+					<!-- modal -->
+					
+					<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop<%=id%>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        
+        
+        				<div class="row">
+	       	 				<h5 class="modal-title ml-3" id="staticBackdropLabel">Class comments</h5>
+	       	 				<div class="col-lg-9 col-md-12 col-sm-12 col-12 mt-2 ">
+	       	 						<div class="child  collapses in" id="collapse-<%=id%>"  aria-labelledby="heading-<%=id%>" data-parent="#accordionExample"> 
+									
+	    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+	    								<span class="text-left">
+	    			
+	    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=rs6.getString("author")%> &nbsp<%out.println(rs6.getDate("date").toLocaleString().subSequence(0, 7)); %></div>
+	    								<div  style="line-height:35px;margin-left:45px;"><%out.println(rs6.getString("asign_comment")); %>   </div>
+	    								</span>
+	    								
+	    							</div>
+	    							
+	       	 				</div>
+       	 				</div>
+       	 				
+        
+        
+        
+        
+        <button type="button" class="close" data-dismiss="modal" style="box-shadow:none;!important" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        	
+			
+			
+			
+		    
+		    				<form action='StudentAssignmentReplyServlet' method='post' id='comment'>
+		       	 				<div class='input-group input-group-sm rounded-lg ml-2 float-left ' style="width: 100%;"> 
+		       	 				 <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='display:bloxk;resize:none;overflow:hidden;box-shadow:none;!important'  name='assign_comment' id='new-reply' rows='2' ></textarea>
+		       	 				 <input type='hidden' name='id' value='<%=id%>'>
+		       	 				 <input type='hidden' name='author' value='<%=author%>'>
+		       	 				 <input type='hidden' name='title' value='<%=rs3.getString("title")%>'>
+		       	 				  <input type='hidden' name='code' value='<%=code%>'>
+		       	 				<div class='input-group-append' id='button-addon3'>
+			       					<input type='submit' class='btn btn-primary btn-block'  id='reply-btn' value='Send'  style='box-shadow:none;!important'>
+			     				</div>
+		       	 				 </div>
+	       	 				 </form>
+		    
+	   
+      </div>
+    </div>
+  </div>
+</div>
+					
+					
+					
+					
+					
+					
+    				<%ii++;%>
+    				
+    				
+    				
+   <%
+		
+} if(ii>0){%>
+<div class="card-footer border-0 bg bg-white" style="">
+    	<a href="#staticBackdrop<%=id%>" data-toggle="modal" ><%=ii %> class comment</a>		
+ </div>
+<% 
+}		rs6.close();
+			st6.close();
+			con6.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
+</div>
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+				
 <%
 		//}
 }

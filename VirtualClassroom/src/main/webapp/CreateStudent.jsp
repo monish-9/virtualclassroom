@@ -108,7 +108,7 @@
 </head>
 
 <body>
-<%!int i; String com;String dt; 
+<%!int i; int ii; String id;String com;String dt; String title; 
 String authorStudent; %>
 <% 
 //session=request.getSession();
@@ -673,13 +673,16 @@ String authorStudent; %>
 			<%
 			
 				while (rs3.next()) {
-		%>		<%String id=rs3.getString("id") ;
+		%>		<%id=rs3.getString("id") ;
 		
+				title=rs3.getString("title");
 		//if(rs.getString("topic")!=null)
 		//{
 		%>
-		<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>" class="text-decoration-none" >
-					<div class="card-header border bg bg-white mt-3 p-3 " style="border-radius:8px;height:73px;">
+		
+				<div class="card mt-3 " style="border-radius:8px;overflow:hidden;">
+				<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>" class="text-decoration-none" >
+					<div class="card-header  bg bg-white p-3 " style="height:73px;">
     				
       					
         					 <span class="float-left ml-1 border rounded-circle pl-2 pr-2 pt-1 pb-1 bg-primary text-light " style="position:relative;">  <svg width="27px" height="2em" viewBox="0 0 16 16" class="bi bi-menu-down " fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -698,7 +701,129 @@ String authorStudent; %>
      	 				
     					
     				</div>
-			</a>		
+    				
+    			</a>	<!-- comment assignment student -->
+    				
+    					<%
+			String quary6 = "SELECT * FROM student_assignment_reply WHERE assign_classcode=? and assign_id=?";
+			
+			try {
+			Connection con6= dbconn.Connection();
+			
+			System.out.println("connected create teacher..");//connection
+
+			PreparedStatement st6 = con6.prepareStatement(quary6);
+			st6.setString(1, code);
+			st6.setString(2, id);
+			ResultSet rs6 = st6.executeQuery();
+
+			if (!rs6.isBeforeFirst()) {
+	%>
+		<div>
+		
+		<%
+				out.print("");
+		%>
+		</div>
+		<%} %>
+		<%ii=0; %>
+			<%
+			
+				while (rs6.next()) {
+					//String id=rs3.getString("id") ;
+					%>
+					
+					
+					<!-- modal -->
+					
+					<!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop<%=id%>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered  modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0">
+        
+        
+        				<div class="row">
+	       	 				<h5 class="modal-title ml-3" id="staticBackdropLabel">Class comments</h5>
+	       	 				<div class="col-lg-9 col-md-12 col-sm-12 col-12 mt-2 ">
+	       	 						<div class="child  collapses in" id="collapse-<%=id%>"  aria-labelledby="heading-<%=id%>" data-parent="#accordionExample"> 
+									
+	    								<span class="fa fa-user-circle fa-2x float-left " style="line-height:40px;color:gray;" aria-hidden="true"></span>
+	    								<span class="text-left">
+	    			
+	    								<div   style="line-height:16px;margin-left:45px;font-size: 13px;"><%=rs6.getString("author")%> &nbsp<%out.println(rs6.getDate("date").toLocaleString().subSequence(0, 7)); %></div>
+	    								<div  style="line-height:35px;margin-left:45px;"><%out.println(rs6.getString("asign_comment")); %>   </div>
+	    								</span>
+	    								
+	    							</div>
+	    							
+	       	 				</div>
+       	 				</div>
+       	 				
+        
+        
+        
+        
+        <button type="button" class="close" data-dismiss="modal" style="box-shadow:none;!important" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        	
+			
+			
+			
+		    
+		    				<form action='StudentAssignmentReplyServlet' method='post' id='comment'>
+		       	 				<div class='input-group input-group-sm rounded-lg ml-2 float-left ' style="width: 100%;"> 
+		       	 				 <textarea class='form-control ' aria-label='Example text with two button addons' aria-describedby='button-addon3'  style='display:bloxk;resize:none;overflow:hidden;box-shadow:none;!important'  name='assign_comment' id='new-reply' rows='2' ></textarea>
+		       	 				 <input type='hidden' name='id' value='<%=id%>'>
+		       	 				 <input type='hidden' name='author' value='<%=authorStudent%>'>
+		       	 				 <input type='hidden' name='title' value='<%=rs3.getString("title")%>'>
+		       	 				  <input type='hidden' name='code' value='<%=code%>'>
+		       	 				<div class='input-group-append' id='button-addon3'>
+			       					<input type='submit' class='btn btn-primary btn-block'  id='reply-btn' value='Send'  style='box-shadow:none;!important'>
+			     				</div>
+		       	 				 </div>
+	       	 				 </form>
+		    
+	   
+      </div>
+    </div>
+  </div>
+</div>
+					
+					
+					
+					
+					
+					
+    				<%ii++;%>
+    				
+    				
+    				
+   <%
+		
+} if(ii>0){%>
+<div class="card-footer border-0 bg bg-white" style="">
+    	<a href="#staticBackdrop<%=id%>" data-toggle="modal" ><%=ii %> class comment</a>		
+ </div>
+<% 
+}		rs6.close();
+			st6.close();
+			con6.close();
+			} catch (Exception e) {
+			e.printStackTrace();
+			}
+					
+%>
+</div>
+			
+				
 <%
 		//}
 }
@@ -790,7 +915,28 @@ String authorStudent; %>
 			//$(".child-comment").show();
 			//$(".child").empty();
 			//});
-	
+	$("textarea").on("keyup input",function(){
+		
+		
+		var empty1=false;
+		$(this).css('height','auto').css('height',this.scrollHeight+(this.offsetHeight-this.clientHeight));
+
+		$("#new-reply").each(function(){
+		if($(this).val()=='')
+			{
+		
+				empty1=true;
+			}
+		});
+		if(empty1)
+			{
+				$('#reply-btn').attr('disabled', 'disabled');
+			}
+		else{
+			$('#reply-btn').removeAttr('disabled');
+			}
+		
+		});								
 						
 						$("#down-arrow").click(function() {
 							$("#down-arrow").addClass("fa fa-chevron-up");

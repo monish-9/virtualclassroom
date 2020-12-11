@@ -182,7 +182,7 @@
 	        				</div>
 	        				
 	        				<div class="row ">
-	        					<div class="col-8 ">
+	        					<div class="col-12 ">
 	        						<div class="ml-2 text-dark"  style="font-family: sans-serif;font-size:13px;"> <%=rs.getString("instruction") %> </div>
 	        					</div>
 	        					
