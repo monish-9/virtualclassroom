@@ -142,6 +142,9 @@ String authorStudent; %>
 		session.setAttribute("classcode", code);
 		session.setAttribute("classname", classname);
 		System.out.println("classcode in CreateTeacher.jsp:" + code);
+		String mailId=request.getParameter("mailId");
+		System.out.println("It has"+ mailId+ "session");
+		session.setAttribute("mailId", mailId);
 		%>
 		<!-- creationj of fixed nav bar -->
 		
@@ -159,9 +162,9 @@ String authorStudent; %>
 			</div>
 			<div class="offset-lg-3 offset-0 col-lg-9 col-6 col-sm-10 offset-sm-2 col-md-8 offset-md-2 ">
 				<nav class="navbar-nav ml-1 ml-sm-5 ml-md-5" >
-					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">Stream</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>"">Classwork</a>&nbsp&nbsp
-					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>">People</a>&nbsp&nbsp
+					<a class="nav-link nav-item "  href="CreateStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Stream</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="StudentAssignment.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">Classwork</a>&nbsp&nbsp
+					<a class="nav-link nav-item " href="PeopleShowInStudent.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&mailId=<%=mailId%>">People</a>&nbsp&nbsp
 					
 				</nav>
 			</div>
@@ -681,7 +684,7 @@ String authorStudent; %>
 		%>
 		
 				<div class="card mt-3 " style="border-radius:8px;overflow:hidden;">
-				<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>" class="text-decoration-none" >
+				<a href="StudentAssignmentView.jsp?code=<%out.print(code);%>&classname=<%out.print(classname);%>&author=<%=request.getParameter("author")%>&id=<%=id %>&mailId=<%=mailId%>" class="text-decoration-none" >
 					<div class="card-header  bg bg-white p-3 " style="height:73px;">
     				
       					
